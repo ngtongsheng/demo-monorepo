@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hello-banana/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@hello/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@hello/ui": ["libs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

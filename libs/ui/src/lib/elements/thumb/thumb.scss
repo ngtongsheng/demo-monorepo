@@ -1,0 +1,7 @@
+.thumb {
+  border-radius: 50%;
+  max-width: 4em;
+  &.is-large {
+    max-width: 10em;
+  }
+}

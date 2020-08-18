@@ -1,5 +1,5 @@
 {
-  "npmScope": "hello-banana",
+  "npmScope": "hello",
   "affected": {
     "defaultBase": "master"
   },
@@ -34,6 +34,16 @@
     },
     "api-interfaces": {
       "tags": []
+    },
+    "ui": {
+      "tags": []
+    },
+    "sample-admin": {
+      "tags": []
+    },
+    "sample-admin-e2e": {
+      "tags": [],
+      "implicitDependencies": ["sample-admin"]
     }
   }
 }

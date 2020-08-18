@@ -1,26 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import { Message } from '@hello-banana/api-interfaces';
+import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
+import { User, Photo } from '@hello/api-interfaces';
+import { Thumb, Columns, Column } from '@hello/ui';
+import './app.scss';
 
 export const App = () => {
-  const [m, setMessage] = useState<Message>({ message: '' });
+  const [user, setUser] = useState<User>();
+  const [photos, setPhotos] = useState<Photo[]>();
+  const { thumb, name, location, phone } = user || {};
 
-  useEffect(() => {
-    fetch('/api')
-      .then((r) => r.json())
-      .then(setMessage);
+  const getPeople = useCallback(async () => {
+    const [people, photos] = await Promise.all([
+      axios.get('http://localhost:3333/people'),
+      axios.get('http://localhost:3333/photos'),
+    ]);
+
+    setUser(people.data);
+    setPhotos(photos.data);
   }, []);
 
+  useEffect(() => {
+    getPeople();
+  }, [getPeople]);
+
   return (
-    <>
-      <div style={{ textAlign: 'center' }}>
-        <h1>Welcome to sample-app!</h1>
-        <img
-          width="450"
-          src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-        />
-      </div>
-      <div>{m.message}</div>
-    </>
+    <div className="app section container">
+      {user && (
+        <Columns isVcentered>
+          <Column isNarrow>
+            <Thumb isLarge src={thumb} alt={name} />
+          </Column>
+          <Column>
+            <p className="title is-5">{name}</p>
+            <p className="subtitle is-6">
+              {location} ({phone})
+            </p>
+          </Column>
+        </Columns>
+      )}
+      <Columns isMultiline>
+        {photos?.map(({ url }) => {
+          return (
+            <Column size={4}>
+              <div
+                style={{
+                  background: 'url(' + url + ')',
+                  overflow: 'hidden',
+                  height: '17em',
+                  backgroundSize: 'cover',
+                }}
+              ></div>
+            </Column>
+          );
+        })}
+      </Columns>
+    </div>
   );
 };
 
