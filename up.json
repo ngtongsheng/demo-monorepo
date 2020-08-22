@@ -1,0 +1,10 @@
+{
+  "name": "travis-lambda",
+  "profile": "default",
+  "regions": ["ap-southeast-1"],
+  "stages": {
+    "dev": {},
+    "production": {},
+    "staging": {}
+  }
+}

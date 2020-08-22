@@ -1,3 +1,21 @@
 language: node_js
 node_js:
   - 10
+
+git:
+  depth: false
+
+branches:
+  only:
+    - master
+
+install:
+  - curl -sf https://up.apex.sh/install | sudo sh
+     
+deploy:
+  provider: script
+  script:
+    yarn;
+    up deploy;
+    on:
+      all_branches: true
