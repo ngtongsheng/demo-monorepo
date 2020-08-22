@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'sample-app',
+  name: 'sarccom-demo-admin',
   preset: '../../jest.config.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
@@ -9,5 +9,5 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/apps/sample-app',
+  coverageDirectory: '../../coverage/apps/sarccom-demo-admin',
 };

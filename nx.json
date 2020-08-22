@@ -22,12 +22,12 @@
     }
   },
   "projects": {
-    "sample-app": {
+    "sarccom-demo-app": {
       "tags": []
     },
-    "sample-app-e2e": {
+    "sarccom-demo-app-e2e": {
       "tags": [],
-      "implicitDependencies": ["sample-app"]
+      "implicitDependencies": ["sarccom-demo-app"]
     },
     "api": {
       "tags": []
@@ -38,12 +38,12 @@
     "ui": {
       "tags": []
     },
-    "sample-admin": {
+    "sarccom-demo-admin": {
       "tags": []
     },
-    "sample-admin-e2e": {
+    "sarccom-demo-admin-e2e": {
       "tags": [],
-      "implicitDependencies": ["sample-admin"]
+      "implicitDependencies": ["sarccom-demo-admin"]
     }
   }
 }
