@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { Thumb, Columns, Column, Card, Button } from '@hello/ui';
-import { User } from '@hello/api-interfaces';
+import { Thumb, Columns, Column, Card, Button } from '@demo-monorepo/ui';
+import { User } from '@demo-monorepo/api-interfaces';
 
 export const UserCard: FunctionComponent<User> = ({
   name,
@@ -21,7 +21,7 @@ export const UserCard: FunctionComponent<User> = ({
           </p>
         </Column>
         <Column isNarrow>
-          <Button>call</Button>
+          <Button>manage</Button>
         </Column>
       </Columns>
     </Card>

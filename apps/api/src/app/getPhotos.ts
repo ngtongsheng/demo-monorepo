@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Photo } from '@hello/api-interfaces';
+import { Photo } from '@demo-monorepo/api-interfaces';
 
 export default (req, res) => {
   axios

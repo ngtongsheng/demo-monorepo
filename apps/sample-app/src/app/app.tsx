@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { User, Photo } from '@hello/api-interfaces';
-import { Thumb, Columns, Column } from '@hello/ui';
+import { User, Photo } from '@demo-monorepo/api-interfaces';
+import { Thumb, Columns, Column } from '@demo-monorepo/ui';
 import './app.scss';
 
 export const App = () => {
@@ -41,7 +41,7 @@ export const App = () => {
       <Columns isMultiline>
         {photos?.map(({ url }) => {
           return (
-            <Column size={4}>
+            <Column key={url} size={4}>
               <div
                 style={{
                   background: 'url(' + url + ')',

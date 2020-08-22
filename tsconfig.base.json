@@ -16,8 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hello/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-      "@hello/ui": ["libs/ui/src/index.ts"]
+      "@demo-monorepo/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@demo-monorepo/ui": ["libs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

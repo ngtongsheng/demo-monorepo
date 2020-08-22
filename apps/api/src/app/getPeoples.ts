@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User } from '@hello/api-interfaces';
+import { User } from '@demo-monorepo/api-interfaces';
 
 export default (req, res) => {
   axios.get('https://randomuser.me/api/?results=10').then((response) => {

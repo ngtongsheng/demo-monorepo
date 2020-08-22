@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { User } from '@hello/api-interfaces';
+import { User } from '@demo-monorepo/api-interfaces';
 import './app.scss';
 import UserCard from './components/UserCard';
 
