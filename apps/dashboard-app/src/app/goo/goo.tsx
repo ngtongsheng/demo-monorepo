@@ -3,12 +3,22 @@ import { useTrail, animated } from 'react-spring';
 
 import './goo.scss';
 
-const fast = { tension: 1200, friction: 40 };
-const slow = { mass: 10, tension: 200, friction: 50 };
-const trans = (x, y) => `translate3d(${x}px,${y}px,0) translate3d(-50%,-50%,0)`;
+const random = (min, max): number => {
+  return Math.round(Math.random() * (max - min) + min);
+};
+
+const getTransforms = (x, y) =>
+  `translate3d(${x}px,${y}px,0) translate3d(-50%,-50%,0)`;
+
+const fast = { tension: random(1000, 1200), friction: random(30, 50) };
+const slow = {
+  mass: random(10, 20),
+  tension: random(100, 300),
+  friction: random(30, 50),
+};
 
 const Goo = () => {
-  const [trail, set] = useTrail(3, () => ({
+  const [trail, setTrail] = useTrail(3, () => ({
     xy: [0, 0],
     config: (i: number) => (i === 0 ? fast : slow),
   }));
@@ -17,7 +27,7 @@ const Goo = () => {
     <>
       <div className="title is-4">Goo animation</div>
       <div className="goo">
-        <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+        <svg>
           <filter id="goo">
             <feGaussianBlur
               in="SourceGraphic"
@@ -32,14 +42,20 @@ const Goo = () => {
         </svg>
         <div
           className="hooks-main"
-          onMouseMove={(e) => set({ xy: [e.clientX, e.clientY] })}
+          onMouseMove={({ clientX, clientY }) =>
+            setTrail({ xy: [clientX, clientY] })
+          }
         >
-          {trail.map((props, index) => (
-            <animated.div
-              key={index}
-              style={{ transform: props.xy.interpolate(trans as never) }}
-            />
-          ))}
+          {trail.map(({ xy }, index) => {
+            return (
+              <animated.div
+                key={index}
+                style={{
+                  transform: xy.interpolate(getTransforms as never),
+                }}
+              />
+            );
+          })}
         </div>
       </div>
     </>
