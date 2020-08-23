@@ -1,0 +1,32 @@
+.tree {
+  > .tree-node {
+    > .tree {
+      display: none;
+      margin-left: 1.5rem;
+    }
+
+    > .tree-header {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: opacity 0.3s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      .icon {
+        width: 1rem;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  &.is-active {
+    > .tree-node {
+      > .tree {
+        display: block;
+      }
+    }
+  }
+}
