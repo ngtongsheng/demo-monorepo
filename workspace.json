@@ -328,6 +328,194 @@
           }
         }
       }
+    },
+    "dashboard-app": {
+      "root": "apps/dashboard-app",
+      "sourceRoot": "apps/dashboard-app/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/dashboard-app",
+            "index": "apps/dashboard-app/src/index.html",
+            "main": "apps/dashboard-app/src/main.tsx",
+            "polyfills": "apps/dashboard-app/src/polyfills.ts",
+            "tsConfig": "apps/dashboard-app/tsconfig.app.json",
+            "assets": [
+              "apps/dashboard-app/src/favicon.ico",
+              "apps/dashboard-app/src/assets"
+            ],
+            "styles": ["apps/dashboard-app/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/dashboard-app/src/environments/environment.ts",
+                  "with": "apps/dashboard-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "dashboard-app:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "dashboard-app:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/dashboard-app/tsconfig.app.json",
+              "apps/dashboard-app/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/dashboard-app/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/dashboard-app/jest.config.js",
+            "tsConfig": "apps/dashboard-app/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dashboard-app-e2e": {
+      "root": "apps/dashboard-app-e2e",
+      "sourceRoot": "apps/dashboard-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/dashboard-app-e2e/cypress.json",
+            "tsConfig": "apps/dashboard-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "dashboard-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dashboard-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": ["apps/dashboard-app-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/dashboard-app-e2e/**/*"]
+          }
+        }
+      }
+    },
+    "service-people": {
+      "root": "libs/service-people",
+      "sourceRoot": "libs/service-people/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/service-people/tsconfig.lib.json",
+              "libs/service-people/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/service-people/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/service-people/jest.config.js",
+            "tsConfig": "libs/service-people/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "service-photo": {
+      "root": "libs/service-photo",
+      "sourceRoot": "libs/service-photo/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/service-photo/tsconfig.lib.json",
+              "libs/service-photo/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/service-photo/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/service-photo/jest.config.js",
+            "tsConfig": "libs/service-photo/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "service-folder": {
+      "root": "libs/service-folder",
+      "sourceRoot": "libs/service-folder/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/service-folder/tsconfig.lib.json",
+              "libs/service-folder/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/service-folder/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/service-folder/jest.config.js",
+            "tsConfig": "libs/service-folder/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

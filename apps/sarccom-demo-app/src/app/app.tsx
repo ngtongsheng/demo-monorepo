@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
 import { User, Photo } from '@demo-monorepo/api-interfaces';
 import { Thumb, Columns, Column } from '@demo-monorepo/ui';
+import { PeopleService } from '@demo-monorepo/service-people';
+import { PhotoService } from '@demo-monorepo/service-photo';
 import './app.scss';
 
 export const App = () => {
@@ -11,12 +12,12 @@ export const App = () => {
 
   const getPeople = useCallback(async () => {
     const [people, photos] = await Promise.all([
-      axios.get('http://localhost:3333/people'),
-      axios.get('http://localhost:3333/photos'),
+      PeopleService.getPeople(),
+      PhotoService.getPhoto(),
     ]);
 
-    setUser(people.data);
-    setPhotos(photos.data);
+    setUser(people);
+    setPhotos(photos);
   }, []);
 
   useEffect(() => {

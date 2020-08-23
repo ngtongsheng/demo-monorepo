@@ -44,6 +44,22 @@
     "sarccom-demo-admin-e2e": {
       "tags": [],
       "implicitDependencies": ["sarccom-demo-admin"]
+    },
+    "dashboard-app": {
+      "tags": []
+    },
+    "dashboard-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["dashboard-app"]
+    },
+    "service-people": {
+      "tags": []
+    },
+    "service-photo": {
+      "tags": []
+    },
+    "service-folder": {
+      "tags": []
     }
   }
 }

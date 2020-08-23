@@ -1,3 +1,5 @@
+export * from './lib/ui-interfaces';
+export * from './lib/components/tree/tree';
 export * from './lib/elements/thumb/thumb';
 export * from './lib/helpers/subtitle/subtitle';
 export * from './lib/helpers/subtitle/subtitle';

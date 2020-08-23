@@ -23,10 +23,13 @@
     "update": "nx migrate latest",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "sarccom": "concurrently \"yarn nx serve sarccom-demo-app\" \"yarn nx serve sarccom-demo-admin --port=4201\" \"yarn nx serve api\"",
+    "dashboard": "concurrently \"yarn nx serve dashboard-app\" \"yarn nx serve api\""
   },
   "private": true,
   "dependencies": {
+    "@nivo/calendar": "^0.62.0",
     "axios": "^0.19.2",
     "bulma": "^0.9.0",
     "classnames": "^2.2.6",
@@ -34,8 +37,12 @@
     "express": "4.17.1",
     "firebase-admin": "^9.1.1",
     "firebase-functions": "^3.11.0",
+    "ramda": "^0.27.1",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-router-dom": "5.2.0",
+    "react-spring": "^8.0.27",
+    "react-use-gesture": "^7.0.15"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",
@@ -54,11 +61,14 @@
     "@types/express": "4.17.0",
     "@types/jest": "25.1.4",
     "@types/node": "~8.9.4",
+    "@types/ramda": "^0.27.14",
     "@types/react": "16.9.38",
     "@types/react-dom": "16.9.8",
+    "@types/react-router-dom": "5.1.5",
     "@typescript-eslint/eslint-plugin": "2.19.2",
     "@typescript-eslint/parser": "2.19.2",
     "babel-jest": "25.1.0",
+    "concurrently": "^5.3.0",
     "cypress": "^4.1.0",
     "dotenv": "6.2.0",
     "eslint": "6.8.0",

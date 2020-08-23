@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
 import { User } from '@demo-monorepo/api-interfaces';
+import { PeopleService } from '@demo-monorepo/service-people';
 import './app.scss';
 import UserCard from './components/UserCard';
 
 export const App = () => {
   const [users, setUsers] = useState<User[]>([]);
   const getPeoples = useCallback(async () => {
-    const res = await axios.get('http://localhost:3333/peoples');
+    const res = await PeopleService.getPeoples();
 
-    setUsers(res.data);
+    setUsers(res);
   }, []);
 
   useEffect(() => {
