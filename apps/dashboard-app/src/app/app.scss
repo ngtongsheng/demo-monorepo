@@ -1,0 +1,11 @@
+.grid {
+  > * {
+    position: relative;
+    .card,
+    .card-content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
