@@ -20,7 +20,8 @@
       "@demo-monorepo/ui": ["libs/ui/src/index.ts"],
       "@demo-monorepo/service-people": ["libs/service-people/src/index.ts"],
       "@demo-monorepo/service-photo": ["libs/service-photo/src/index.ts"],
-      "@demo-monorepo/service-folder": ["libs/service-folder/src/index.ts"]
+      "@demo-monorepo/service-folder": ["libs/service-folder/src/index.ts"],
+      "@demo-monorepo/service-corana": ["libs/service-corana/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

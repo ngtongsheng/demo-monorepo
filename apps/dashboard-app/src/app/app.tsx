@@ -3,6 +3,8 @@ import { Card } from '@demo-monorepo/ui';
 import Folders from '../app/folders/folders';
 import CalendarChart from '../app/calendar-chart/calendar-chart';
 import Goo from '../app/goo/goo';
+import DraggableList from '../app/draggable-list/draggable-list';
+import CoronaCases from '../app/corona-cases/corona-cases';
 import './app.scss';
 
 export const App = () => {
@@ -12,7 +14,7 @@ export const App = () => {
         className="grid"
         style={{
           display: 'grid',
-          gridTemplateRows: 'repeat(3, 20em)',
+          gridTemplateRows: 'repeat(4, 20em)',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gridGap: '1.5em',
         }}
@@ -26,8 +28,14 @@ export const App = () => {
             <Goo />
           </Card>
         </div>
-        <div>
-          <Card>2</Card>
+        <div
+          style={{
+            gridArea: '3 / 1 / 5 / 2',
+          }}
+        >
+          <Card>
+            <DraggableList />
+          </Card>
         </div>
         <div
           style={{
@@ -47,15 +55,14 @@ export const App = () => {
             <CalendarChart />
           </Card>
         </div>
-        <div>
-          <Card>5</Card>
-        </div>
         <div
           style={{
-            gridArea: '4 / 2 / 3 / 4',
+            gridArea: '5 / 2 / 3 / 4',
           }}
         >
-          <Card>6</Card>
+          <Card>
+            <CoronaCases />
+          </Card>
         </div>
       </div>
     </div>

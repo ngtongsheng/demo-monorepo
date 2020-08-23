@@ -65,13 +65,17 @@ export const Tree: FunctionComponent<TreeProps> = ({
           </div>
         </div>
         {isChildren &&
-          children.map((child) => (
-            <Tree
-              node={child}
-              onSelect={onSelect}
-              currentSelectedPath={currentSelectedPath}
-            />
-          ))}
+          children.map((child) => {
+            const { path } = child;
+            return (
+              <Tree
+                key={path}
+                node={child}
+                onSelect={onSelect}
+                currentSelectedPath={currentSelectedPath}
+              />
+            );
+          })}
       </div>
     </div>
   );

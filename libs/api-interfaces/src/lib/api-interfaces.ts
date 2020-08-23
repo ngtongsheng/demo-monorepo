@@ -8,3 +8,8 @@ export interface User {
 export interface Photo {
   url: string;
 }
+
+export interface CoronaCase {
+  id: string;
+  cases: number;
+}

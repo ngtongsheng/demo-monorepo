@@ -1,7 +1,12 @@
 .thumb {
   border-radius: 50%;
+  width: 4em;
+  height: 4em;
   max-width: 4em;
+  vertical-align: middle;
   &.is-large {
+    width: 10em;
+    height: 10em;
     max-width: 10em;
   }
 }

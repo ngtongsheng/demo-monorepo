@@ -516,6 +516,33 @@
           }
         }
       }
+    },
+    "service-corana": {
+      "root": "libs/service-corana",
+      "sourceRoot": "libs/service-corana/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/service-corana/tsconfig.lib.json",
+              "libs/service-corana/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/service-corana/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/service-corana/jest.config.js",
+            "tsConfig": "libs/service-corana/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

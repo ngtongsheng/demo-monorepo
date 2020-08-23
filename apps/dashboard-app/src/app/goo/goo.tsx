@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTrail, animated } from 'react-spring';
-
+import GooFilter from './goo-filter';
 import './goo.scss';
 
 const random = (min, max): number => {
@@ -10,52 +10,50 @@ const random = (min, max): number => {
 const getTransforms = (x, y) =>
   `translate3d(${x}px,${y}px,0) translate3d(-50%,-50%,0)`;
 
-const fast = { tension: random(1000, 1200), friction: random(30, 50) };
-const slow = {
-  mass: random(10, 20),
-  tension: random(100, 300),
-  friction: random(30, 50),
-};
-
 const Goo = () => {
   const [trail, setTrail] = useTrail(3, () => ({
     xy: [0, 0],
-    config: (i: number) => (i === 0 ? fast : slow),
+    config: (i: number) => {
+      const config = {
+        friction: random(30, 50),
+      };
+
+      if (i === 0) {
+        return {
+          ...config,
+          tension: random(1000, 1200),
+        };
+      }
+
+      return {
+        ...config,
+        mass: random(10, 20),
+        tension: random(100, 300),
+      };
+    },
   }));
+
+  const handleMouseMove = useCallback(
+    ({ clientX, clientY }) => {
+      setTrail({ xy: [clientX, clientY] });
+    },
+    [setTrail]
+  );
 
   return (
     <>
-      <div className="title is-4">Goo animation</div>
+      <div className="title is-4">Interactive animation</div>
       <div className="goo">
-        <svg>
-          <filter id="goo">
-            <feGaussianBlur
-              in="SourceGraphic"
-              result="blur"
-              stdDeviation="15"
+        <GooFilter />
+        <div className="goo-container" onMouseMove={handleMouseMove}>
+          {trail.map(({ xy }, index) => (
+            <animated.div
+              key={index}
+              style={{
+                transform: xy.interpolate(getTransforms as never),
+              }}
             />
-            <feColorMatrix
-              in="blur"
-              values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 30 -7"
-            />
-          </filter>
-        </svg>
-        <div
-          className="hooks-main"
-          onMouseMove={({ clientX, clientY }) =>
-            setTrail({ xy: [clientX, clientY] })
-          }
-        >
-          {trail.map(({ xy }, index) => {
-            return (
-              <animated.div
-                key={index}
-                style={{
-                  transform: xy.interpolate(getTransforms as never),
-                }}
-              />
-            );
-          })}
+          ))}
         </div>
       </div>
     </>

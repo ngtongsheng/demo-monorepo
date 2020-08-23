@@ -3360,7 +3360,6 @@ export const CalendarChart = (props: CalendarChartProps) => {
   return (
     <div className="calendar-chart">
       <div className="title is-4">Calendar chart</div>
-
       <ResponsiveCalendar
         data={data}
         from="2017-01-01"

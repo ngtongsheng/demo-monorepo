@@ -3,6 +3,7 @@ import getPeople from './app/getPeople';
 import getPeoples from './app/getPeoples';
 import getPhotos from './app/getPhotos';
 import getFolders from './app/getFolders';
+import getCoronaCases from './app/getCoronaCases';
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.get('/people', getPeople);
 app.get('/peoples', getPeoples);
 app.get('/photos', getPhotos);
 app.get('/folders', getFolders);
+app.get('/corona-cases', getCoronaCases);
 
 const port = process.env.port || 3333;
 const server = app.listen(port, () => {
