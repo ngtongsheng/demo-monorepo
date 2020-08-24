@@ -42,7 +42,7 @@ const convertPathsToNestedArray = (paths): TreeNode[] => {
 
 export const Folders = () => {
   const [folders, setFolders] = useState<TreeNode[]>([]);
-  const [path, setPath] = useState<string>('/');
+  const [path, setPath] = useState<string>('');
 
   const getFolders = useCallback(async () => {
     const res = await FolderService.getFolders();
@@ -62,8 +62,14 @@ export const Folders = () => {
   return (
     <div className="folders">
       <div className="title is-4">Tree view</div>
-      <p>Selected path</p>
-      <code>{path}</code>
+      <div className="content">
+        {!path && <p>Click on the label to select the path.</p>}
+        {path && (
+          <p>
+            You have selected <b>{path}</b>.
+          </p>
+        )}
+      </div>
 
       <div className="folders-container">
         {folders?.map((folder) => (

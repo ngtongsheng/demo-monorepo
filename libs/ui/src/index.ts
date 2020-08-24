@@ -1,3 +1,6 @@
+export * from './lib/elements/chat-bubble/chat-bubble';
+export * from './lib/elements/fa-icon/fa-icon';
+export * from './lib/elements/input/input';
 export * from './lib/ui-interfaces';
 export * from './lib/components/tree/tree';
 export * from './lib/elements/thumb/thumb';

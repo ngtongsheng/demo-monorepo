@@ -63,6 +63,9 @@
     },
     "service-corana": {
       "tags": []
+    },
+    "hooks": {
+      "tags": []
     }
   }
 }

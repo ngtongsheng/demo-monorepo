@@ -2,9 +2,10 @@ import React from 'react';
 import { Card } from '@demo-monorepo/ui';
 import Folders from '../app/folders/folders';
 import CalendarChart from '../app/calendar-chart/calendar-chart';
-import Goo from '../app/goo/goo';
+import InteractiveAnimation from '../app/interactive-animation/interactive-animation';
 import DraggableList from '../app/draggable-list/draggable-list';
 import CoronaCases from '../app/corona-cases/corona-cases';
+import SimpleChat from '../app/simple-chat/simple-chat';
 import './app.scss';
 
 export const App = () => {
@@ -14,7 +15,7 @@ export const App = () => {
         className="grid"
         style={{
           display: 'grid',
-          gridTemplateRows: 'repeat(4, 20em)',
+          gridTemplateRows: 'repeat(6, 20em)',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gridGap: '1.5em',
         }}
@@ -25,7 +26,7 @@ export const App = () => {
           }}
         >
           <Card>
-            <Goo />
+            <InteractiveAnimation />
           </Card>
         </div>
         <div
@@ -62,6 +63,15 @@ export const App = () => {
         >
           <Card>
             <CoronaCases />
+          </Card>
+        </div>
+        <div
+          style={{
+            gridArea: '5 / 1 / 7 / 2',
+          }}
+        >
+          <Card>
+            <SimpleChat />
           </Card>
         </div>
       </div>

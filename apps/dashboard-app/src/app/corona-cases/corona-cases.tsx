@@ -21,6 +21,9 @@ export const CoronaCases = () => {
   return (
     <div className="corona-cases">
       <div className="title is-4">Covid cases by country</div>
+      <div className="content">
+        <p>Total Covid 19 yesterday using public api.</p>
+      </div>
       <div>
         {cases && (
           <ResponsiveChoropleth

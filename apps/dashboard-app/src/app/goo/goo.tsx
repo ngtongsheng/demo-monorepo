@@ -35,28 +35,25 @@ const Goo = () => {
 
   const handleMouseMove = useCallback(
     ({ clientX, clientY }) => {
-      setTrail({ xy: [clientX, clientY] });
+      setTrail({ xy: [clientX - 100, clientY - 100] });
     },
     [setTrail]
   );
 
   return (
-    <>
-      <div className="title is-4">Interactive animation</div>
-      <div className="goo">
-        <GooFilter />
-        <div className="goo-container" onMouseMove={handleMouseMove}>
-          {trail.map(({ xy }, index) => (
-            <animated.div
-              key={index}
-              style={{
-                transform: xy.interpolate(getTransforms as never),
-              }}
-            />
-          ))}
-        </div>
+    <div className="goo">
+      <GooFilter />
+      <div className="goo-container" onMouseMove={handleMouseMove}>
+        {trail.map(({ xy }, index) => (
+          <animated.div
+            key={index}
+            style={{
+              transform: xy.interpolate(getTransforms as never),
+            }}
+          />
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

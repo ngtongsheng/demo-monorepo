@@ -1,0 +1,26 @@
+.chat-bubble-row {
+  display: flex;
+
+  &.is-left {
+    justify-content: flex-start;
+    .chat-bubble {
+      background: #61cdbb;
+    }
+  }
+
+  &.is-right {
+    justify-content: flex-end;
+    .chat-bubble {
+      background: #f47560;
+    }
+  }
+}
+
+.chat-bubble {
+  padding: 0.25em 0.75em;
+  border-radius: 0.75em;
+  display: inline-block;
+  color: #fff;
+  margin-bottom: 0.5em;
+  max-width: 75%;
+}

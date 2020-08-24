@@ -32,6 +32,9 @@ export const DraggableList = () => {
   return (
     <div className="draggable-list">
       <div className="title is-4">Draggable list</div>
+      <div className="content">
+        <p>Drag the card to reorder the list.</p>
+      </div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="droppable">
           {({ droppableProps, innerRef, placeholder }) => (
