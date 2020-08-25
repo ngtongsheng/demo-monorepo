@@ -6,6 +6,7 @@ import InteractiveAnimation from '../app/interactive-animation/interactive-anima
 import DraggableList from '../app/draggable-list/draggable-list';
 import CoronaCases from '../app/corona-cases/corona-cases';
 import SimpleChat from '../app/simple-chat/simple-chat';
+import SimpleRating from '../app/simple-rating/simple-rating';
 import './app.scss';
 
 export const App = () => {
@@ -72,6 +73,15 @@ export const App = () => {
         >
           <Card>
             <SimpleChat />
+          </Card>
+        </div>
+        <div
+          style={{
+            gridArea: '5 / 2 / 5 / 2',
+          }}
+        >
+          <Card>
+            <SimpleRating />
           </Card>
         </div>
       </div>

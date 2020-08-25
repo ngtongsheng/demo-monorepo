@@ -29,11 +29,16 @@ interface SendMessage {
 }
 
 export const SimpleChat = () => {
+  const defaultMessage: Message = {
+    side: 'left',
+    text: 'hello',
+    time: Date.now(),
+  };
   const messagesRef = useRef<HTMLDivElement>();
   const inputRef = useRef<HTMLInputElement>();
   const id = useRef<number>(Date.now());
   const [currentText, setCurrentText] = useState('');
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([defaultMessage]);
 
   const handleSend = useCallback(
     async (event) => {
@@ -82,7 +87,13 @@ export const SimpleChat = () => {
     <div className="simple-chat">
       <div className="title is-4">Simple web socket chat</div>
       <div className="content">
-        <p>Open this page in another tab to try this feature.</p>
+        <p>
+          Open this{' '}
+          <a href="/chat" target="_blank">
+            page
+          </a>{' '}
+          in another tab to try this feature.
+        </p>
       </div>
       <div className="simple-chat-container">
         <div className="simple-chat-messages" ref={messagesRef}>

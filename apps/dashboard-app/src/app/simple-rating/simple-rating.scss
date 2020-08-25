@@ -1,0 +1,32 @@
+.simple-rating {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .stars {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: translateY(-1em);
+  }
+}
+
+.star {
+  cursor: pointer;
+  transition: all 0.3s;
+  vertical-align: middle;
+
+  .icon {
+    transition: all 0.3s;
+  }
+
+  &:active {
+    .icon {
+      transform: scale(1.1, 1.1);
+    }
+  }
+  .icon {
+    font-size: 2.5rem;
+    width: 3.75rem;
+  }
+}

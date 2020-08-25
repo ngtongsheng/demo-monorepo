@@ -5,6 +5,8 @@
     justify-content: flex-start;
     .chat-bubble {
       background: #61cdbb;
+      transform-origin: 0 0;
+      animation: bubble-out-left 0.2s normal forwards;
     }
   }
 
@@ -12,6 +14,8 @@
     justify-content: flex-end;
     .chat-bubble {
       background: #f47560;
+      transform-origin: 100% 0;
+      animation: bubble-out-right 0.2s normal forwards;
     }
   }
 }
@@ -23,4 +27,26 @@
   color: #fff;
   margin-bottom: 0.5em;
   max-width: 75%;
+}
+
+@keyframes bubble-out-left {
+  from {
+    opacity: 0.5;
+    transform: scale(0, 0) translateX(-1em);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1, 1) translateX(0);
+  }
+}
+
+@keyframes bubble-out-right {
+  from {
+    opacity: 0.5;
+    transform: scale(0, 0) translateX(1em);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1, 1) translateX(0);
+  }
 }
