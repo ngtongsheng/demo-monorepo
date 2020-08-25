@@ -1,11 +1,19 @@
 import axios from 'axios';
 
 const getPeoples = () => {
-  return axios.get('http://localhost:3333/peoples').then(({ data }) => data);
+  return axios
+    .get(
+      'https://349ba4e37i.execute-api.ap-southeast-1.amazonaws.com/dev/peoples'
+    )
+    .then(({ data }) => data.body);
 };
 
 const getPeople = () => {
-  return axios.get('http://localhost:3333/people').then(({ data }) => data);
+  return axios
+    .get(
+      'https://349ba4e37i.execute-api.ap-southeast-1.amazonaws.com/dev/people'
+    )
+    .then(({ data }) => data.body);
 };
 
 export default {

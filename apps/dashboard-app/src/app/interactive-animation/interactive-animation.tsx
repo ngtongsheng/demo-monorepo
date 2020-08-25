@@ -11,7 +11,7 @@ export const InteractiveAnimation = (props: InteractiveAnimationProps) => {
       <div>
         <div className="title is-4">Interactive animation</div>
         <div className="content">
-          <p>Move you mouse to the the goo animation using react spring.</p>
+          <p>Move you mouse to the the goo animation.</p>
         </div>
       </div>
       <Goo />

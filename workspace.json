@@ -338,7 +338,7 @@
         "build": {
           "builder": "@nrwl/web:build",
           "options": {
-            "outputPath": "dist/apps/dashboard-app",
+            "outputPath": "apps/dashboard-app/dist",
             "index": "apps/dashboard-app/src/index.html",
             "main": "apps/dashboard-app/src/main.tsx",
             "polyfills": "apps/dashboard-app/src/polyfills.ts",

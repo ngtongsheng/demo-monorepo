@@ -4,6 +4,11 @@
   height: 4em;
   max-width: 4em;
   vertical-align: middle;
+  &.is-medium {
+    width: 7em;
+    height: 7em;
+    max-width: 7em;
+  }
   &.is-large {
     width: 10em;
     height: 10em;

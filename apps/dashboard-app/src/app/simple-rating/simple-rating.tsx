@@ -22,6 +22,7 @@ export const SimpleRating = () => {
               hoverRating > -1 ? index <= hoverRating : index <= rating;
             return (
               <Star
+                key={star}
                 onMouseEnter={() => setHoverRating(index)}
                 onMouseLeave={() => setHoverRating(-1)}
                 onClick={() => setRating(index)}
