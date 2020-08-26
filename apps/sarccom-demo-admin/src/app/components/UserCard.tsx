@@ -21,7 +21,7 @@ export const UserCard: FunctionComponent<User> = ({
           </p>
         </Column>
         <Column isNarrow>
-          <Button>manage</Button>
+          <Button color="primary">manage</Button>
         </Column>
       </Columns>
     </Card>
