@@ -66,6 +66,13 @@
     },
     "hooks": {
       "tags": []
+    },
+    "livingpackets": {
+      "tags": []
+    },
+    "livingpackets-e2e": {
+      "tags": [],
+      "implicitDependencies": ["livingpackets"]
     }
   }
 }
