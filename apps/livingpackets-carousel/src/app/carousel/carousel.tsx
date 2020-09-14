@@ -12,6 +12,7 @@ import PageIndicator from '../page-indicator/page-indicator';
 import { useSprings, animated, interpolate } from 'react-spring';
 import { useGesture } from 'react-use-gesture';
 import { PhotoService } from '@demo-monorepo/service-photo';
+import { useKeyDown } from '@demo-monorepo/hooks';
 
 import './carousel.scss';
 
@@ -114,6 +115,14 @@ function Carousel() {
     getPhotos();
   }, [getPhotos]);
 
+  useKeyDown(['ArrowLeft'], () => {
+    goPrev();
+  });
+
+  useKeyDown(['ArrowRight'], () => {
+    goNext();
+  });
+
   return (
     <div className="carousel">
       {!!photos.length && (
@@ -146,6 +155,7 @@ function Carousel() {
           <div className="carousel-indicators">
             {photos.map((photo, i) => (
               <PageIndicator
+                key={i}
                 onClick={() => gotoPage(i)}
                 isActive={i === page}
               />
