@@ -17,7 +17,12 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
       }
     }
   },
@@ -27,7 +32,9 @@
     },
     "sarccom-demo-app-e2e": {
       "tags": [],
-      "implicitDependencies": ["sarccom-demo-app"]
+      "implicitDependencies": [
+        "sarccom-demo-app"
+      ]
     },
     "api": {
       "tags": []
@@ -43,14 +50,18 @@
     },
     "sarccom-demo-admin-e2e": {
       "tags": [],
-      "implicitDependencies": ["sarccom-demo-admin"]
+      "implicitDependencies": [
+        "sarccom-demo-admin"
+      ]
     },
     "dashboard-app": {
       "tags": []
     },
     "dashboard-app-e2e": {
       "tags": [],
-      "implicitDependencies": ["dashboard-app"]
+      "implicitDependencies": [
+        "dashboard-app"
+      ]
     },
     "service-people": {
       "tags": []
@@ -67,12 +78,14 @@
     "hooks": {
       "tags": []
     },
-    "livingpackets": {
+    "livingpackets-carousel": {
       "tags": []
     },
-    "livingpackets-e2e": {
+    "livingpackets-carousel-e2e": {
       "tags": [],
-      "implicitDependencies": ["livingpackets"]
+      "implicitDependencies": [
+        "livingpackets-carousel"
+      ]
     }
   }
 }
