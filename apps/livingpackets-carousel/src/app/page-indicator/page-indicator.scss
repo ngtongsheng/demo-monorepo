@@ -1,0 +1,18 @@
+.page-indicator {
+  width: 0.75em;
+  height: 0.75em;
+  background: #ddd;
+  transition: 0.3s all;
+  margin: 0.5em 0.25em;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+
+  &.is-active {
+    background: #333;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

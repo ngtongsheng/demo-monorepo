@@ -44,8 +44,8 @@
     "react-dom": "16.13.1",
     "react-hook-form": "^6.5.1",
     "react-router-dom": "5.2.0",
-    "react-spring": "^8.0.27",
-    "react-use-gesture": "^7.0.15"
+    "react-spring": "8.0.19",
+    "react-use-gesture": "5.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",

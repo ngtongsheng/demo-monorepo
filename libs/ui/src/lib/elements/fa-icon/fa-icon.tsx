@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import './fa-icon.scss';
 
 type Style = 'fas' | 'far';
-type Name = 'paper-plane' | 'star';
+type Name = 'paper-plane' | 'star' | 'chevron-left' | 'chevron-right';
 
 export interface FaIconProps {
   style?: Style;
