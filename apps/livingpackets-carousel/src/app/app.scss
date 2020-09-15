@@ -10,6 +10,20 @@ body {
   height: 100%;
   width: 100%;
   user-select: none;
-  position: fixed;
-  overflow: hidden;
+  overflow: auto;
+
+  .section {
+    position: relative;
+    text-align: center;
+    &.is-full-height {
+      height: 100vh;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .columns,
+  .column {
+    height: 50vh;
+  }
 }

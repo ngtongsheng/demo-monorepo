@@ -1,0 +1,21 @@
+.carousel {
+  .button {
+    position: absolute;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    z-index: 10;
+    transition: 0.3s all;
+    color: #888;
+    &.is-box-shadow {
+      box-shadow: 0px 2px 30px 0px rgba(217, 217, 217, 1);
+    }
+  }
+
+  .left-button {
+    left: 0.75em;
+  }
+
+  .right-button {
+    right: 0.75em;
+  }
+}

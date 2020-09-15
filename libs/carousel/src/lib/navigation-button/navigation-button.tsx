@@ -14,7 +14,7 @@ const NavigationButton: FunctionComponent<NavigationButtonProps> = (props) => {
     <Button
       {...other}
       className={classes}
-      style={{ ...style, fontSize: '3em' }}
+      style={{ ...style, fontSize: '200%' }}
       isIcon
     >
       <FaIcon

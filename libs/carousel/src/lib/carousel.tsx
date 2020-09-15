@@ -1,16 +1,29 @@
-import React, { useRef, useMemo, useState, useCallback } from 'react';
-
+import React, {
+  useRef,
+  useMemo,
+  useState,
+  useCallback,
+  FunctionComponent,
+} from 'react';
+import classNames from 'classnames';
 import clamp from 'ramda/src/clamp';
-import NavigationButton from './navigation-button/navigation-button';
+import NavigationButtons from './navigation-buttons/navigation-buttons';
 import PageIndicators from './page-indicators/page-indicators';
 import { useSprings, animated, interpolate } from 'react-spring';
 import { useGesture } from 'react-use-gesture';
-import { useKeyDown } from '@demo-monorepo/hooks';
 
 import './carousel.scss';
 
-export interface CarouselProps {
-  contents: (HTMLElement | string)[];
+export interface CarouselStyleProps {
+  isBoxShadow?: boolean;
+}
+
+export interface CarouselProps extends CarouselStyleProps {
+  contents: (JSX.Element | Element | HTMLElement | string)[];
+  isPagination?: boolean;
+  isNavigation?: boolean;
+  isGapless?: boolean;
+  isKeyboard?: boolean;
 }
 
 interface CarouselAnimationProp {
@@ -20,9 +33,17 @@ interface CarouselAnimationProp {
   display: string;
 }
 
-export const Carousel = ({ contents }: CarouselProps) => {
+export const Carousel: FunctionComponent<CarouselProps> = ({
+  contents,
+  isPagination = true,
+  isNavigation = true,
+  isBoxShadow = true,
+  isGapless = false,
+  isKeyboard = false,
+}: CarouselProps) => {
   const index = useRef(0);
   const [page, setPage] = useState(index.current);
+  const isContents = !!contents.length;
 
   const [props, set] = useSprings(
     contents.length,
@@ -98,49 +119,52 @@ export const Carousel = ({ contents }: CarouselProps) => {
     }
   );
 
-  useKeyDown(['ArrowLeft'], () => {
-    goPrev();
-  });
-
-  useKeyDown(['ArrowRight'], () => {
-    goNext();
-  });
-
   return (
     <div className="carousel">
-      {!!contents.length && (
-        <>
-          <NavigationButton color="light" direction="left" onClick={goPrev} />
-          <NavigationButton color="light" direction="right" onClick={goNext} />
-          {props.map(({ x, display, scale, rotateY }, i) => (
-            <animated.div
-              {...bind()}
-              className="carousel-draggable"
-              key={i}
-              style={{
-                display,
-                transform: interpolate([x], (x) => `translate3d(${x}px,0,0)`),
-              }}
-            >
-              <animated.div
-                className="carousel-image"
-                style={{
-                  transform: interpolate(
-                    [scale, rotateY],
-                    (scale, rotateY) =>
-                      `perspective(1400px) rotateY(${rotateY}deg) scale(${scale}) `
-                  ),
-                  backgroundImage: `url(${contents[i]})`,
-                }}
-              />
-            </animated.div>
-          ))}
-          <PageIndicators
-            length={contents.length}
-            currentPage={page}
-            onClick={gotoPage}
-          />
-        </>
+      {isContents && isNavigation && (
+        <NavigationButtons
+          isKeyboard={isKeyboard}
+          isBoxShadow={isBoxShadow}
+          onPrev={goPrev}
+          onNext={goNext}
+        />
+      )}
+      {props.map(({ x, display, scale, rotateY }, i) => (
+        <animated.div
+          {...bind()}
+          className={classNames('carousel-draggable', {
+            'is-gapless': isGapless,
+          })}
+          key={i}
+          style={{
+            display,
+            transform: interpolate([x], (x) => `translate3d(${x}px,0,0)`),
+          }}
+        >
+          <animated.div
+            className={classNames('carousel-image', {
+              'is-box-shadow': isBoxShadow,
+            })}
+            style={{
+              transform: interpolate(
+                [scale, rotateY],
+                (scale, rotateY) =>
+                  `perspective(1400px) rotateY(${rotateY}deg) scale(${scale}) `
+              ),
+              backgroundImage:
+                typeof contents[i] === 'string' && `url(${contents[i]})`,
+            }}
+          >
+            {typeof contents[i] !== 'string' && contents[i]}
+          </animated.div>
+        </animated.div>
+      ))}
+      {isContents && isPagination && (
+        <PageIndicators
+          length={contents.length}
+          currentPage={page}
+          onClick={gotoPage}
+        />
       )}
     </div>
   );
