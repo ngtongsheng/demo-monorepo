@@ -19,9 +19,7 @@
               "apps/sarccom-demo-app/src/favicon.ico",
               "apps/sarccom-demo-app/src/assets"
             ],
-            "styles": [
-              "apps/sarccom-demo-app/src/styles.scss"
-            ],
+            "styles": ["apps/sarccom-demo-app/src/styles.scss"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -70,10 +68,7 @@
               "apps/sarccom-demo-app/tsconfig.app.json",
               "apps/sarccom-demo-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/sarccom-demo-app/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/sarccom-demo-app/**/*"]
           }
         },
         "test": {
@@ -108,13 +103,8 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": [
-              "apps/sarccom-demo-app-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/sarccom-demo-app-e2e/**/*"
-            ]
+            "tsConfig": ["apps/sarccom-demo-app-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/sarccom-demo-app-e2e/**/*"]
           }
         }
       }
@@ -132,9 +122,7 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
+            "assets": ["apps/api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -164,10 +152,7 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/api/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
           }
         },
         "test": {
@@ -194,10 +179,7 @@
               "libs/api-interfaces/tsconfig.lib.json",
               "libs/api-interfaces/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/api-interfaces/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**/*"]
           }
         },
         "test": {
@@ -224,10 +206,7 @@
               "libs/ui/tsconfig.lib.json",
               "libs/ui/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/ui/**/*"]
           }
         },
         "test": {
@@ -258,9 +237,7 @@
               "apps/sarccom-demo-admin/src/favicon.ico",
               "apps/sarccom-demo-admin/src/assets"
             ],
-            "styles": [
-              "apps/sarccom-demo-admin/src/styles.scss"
-            ],
+            "styles": ["apps/sarccom-demo-admin/src/styles.scss"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -308,10 +285,7 @@
               "apps/sarccom-demo-admin/tsconfig.app.json",
               "apps/sarccom-demo-admin/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/sarccom-demo-admin/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/sarccom-demo-admin/**/*"]
           }
         },
         "test": {
@@ -346,9 +320,7 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": [
-              "apps/sarccom-demo-admin-e2e/tsconfig.e2e.json"
-            ],
+            "tsConfig": ["apps/sarccom-demo-admin-e2e/tsconfig.e2e.json"],
             "exclude": [
               "**/node_modules/**",
               "!apps/sarccom-demo-admin-e2e/**/*"
@@ -375,9 +347,7 @@
               "apps/dashboard-app/src/favicon.ico",
               "apps/dashboard-app/src/assets"
             ],
-            "styles": [
-              "apps/dashboard-app/src/styles.scss"
-            ],
+            "styles": ["apps/dashboard-app/src/styles.scss"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -425,10 +395,7 @@
               "apps/dashboard-app/tsconfig.app.json",
               "apps/dashboard-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/dashboard-app/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/dashboard-app/**/*"]
           }
         },
         "test": {
@@ -463,13 +430,8 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": [
-              "apps/dashboard-app-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/dashboard-app-e2e/**/*"
-            ]
+            "tsConfig": ["apps/dashboard-app-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/dashboard-app-e2e/**/*"]
           }
         }
       }
@@ -488,10 +450,7 @@
               "libs/service-people/tsconfig.lib.json",
               "libs/service-people/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/service-people/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/service-people/**/*"]
           }
         },
         "test": {
@@ -518,10 +477,7 @@
               "libs/service-photo/tsconfig.lib.json",
               "libs/service-photo/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/service-photo/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/service-photo/**/*"]
           }
         },
         "test": {
@@ -548,10 +504,7 @@
               "libs/service-folder/tsconfig.lib.json",
               "libs/service-folder/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/service-folder/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/service-folder/**/*"]
           }
         },
         "test": {
@@ -578,10 +531,7 @@
               "libs/service-corana/tsconfig.lib.json",
               "libs/service-corana/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/service-corana/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/service-corana/**/*"]
           }
         },
         "test": {
@@ -608,10 +558,7 @@
               "libs/hooks/tsconfig.lib.json",
               "libs/hooks/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/hooks/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/hooks/**/*"]
           }
         },
         "test": {
@@ -642,9 +589,7 @@
               "apps/livingpackets-carousel/src/favicon.ico",
               "apps/livingpackets-carousel/src/assets"
             ],
-            "styles": [
-              "apps/livingpackets-carousel/src/styles.scss"
-            ],
+            "styles": ["apps/livingpackets-carousel/src/styles.scss"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -730,13 +675,38 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": [
-              "apps/livingpackets-carousel-e2e/tsconfig.e2e.json"
-            ],
+            "tsConfig": ["apps/livingpackets-carousel-e2e/tsconfig.e2e.json"],
             "exclude": [
               "**/node_modules/**",
               "!apps/livingpackets-carousel-e2e/**/*"
             ]
+          }
+        }
+      }
+    },
+    "carousel": {
+      "root": "libs/carousel",
+      "sourceRoot": "libs/carousel/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/carousel/tsconfig.lib.json",
+              "libs/carousel/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/carousel/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/carousel/jest.config.js",
+            "tsConfig": "libs/carousel/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }

@@ -22,7 +22,8 @@
       "@demo-monorepo/service-photo": ["libs/service-photo/src/index.ts"],
       "@demo-monorepo/service-folder": ["libs/service-folder/src/index.ts"],
       "@demo-monorepo/service-corana": ["libs/service-corana/src/index.ts"],
-      "@demo-monorepo/hooks": ["libs/hooks/src/index.ts"]
+      "@demo-monorepo/hooks": ["libs/hooks/src/index.ts"],
+      "@demo-monorepo/carousel": ["libs/carousel/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

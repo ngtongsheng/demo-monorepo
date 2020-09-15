@@ -1,20 +1,17 @@
-import React, {
-  useRef,
-  useMemo,
-  useEffect,
-  useState,
-  useCallback,
-} from 'react';
+import React, { useRef, useMemo, useState, useCallback } from 'react';
 
 import clamp from 'ramda/src/clamp';
-import NavigationButton from '../navigation-button/navigation-button';
-import PageIndicator from '../page-indicator/page-indicator';
+import NavigationButton from './navigation-button/navigation-button';
+import PageIndicators from './page-indicators/page-indicators';
 import { useSprings, animated, interpolate } from 'react-spring';
 import { useGesture } from 'react-use-gesture';
-import { PhotoService } from '@demo-monorepo/service-photo';
 import { useKeyDown } from '@demo-monorepo/hooks';
 
 import './carousel.scss';
+
+export interface CarouselProps {
+  contents: (HTMLElement | string)[];
+}
 
 interface CarouselAnimationProp {
   x?: number;
@@ -23,13 +20,12 @@ interface CarouselAnimationProp {
   display: string;
 }
 
-function Carousel() {
+export const Carousel = ({ contents }: CarouselProps) => {
   const index = useRef(0);
   const [page, setPage] = useState(index.current);
-  const [photos, setPhotos] = useState([]);
 
   const [props, set] = useSprings(
-    photos.length,
+    contents.length,
     (i: number): CarouselAnimationProp => ({
       x: i * window.innerWidth,
       rotateY: 0,
@@ -55,39 +51,30 @@ function Carousel() {
     );
   }, [set]);
 
-  const clampWithinPagination = useMemo(() => clamp(0, photos.length - 1), [
-    photos,
-  ]);
-
-  const getPhotos = useCallback(async () => {
-    const res = await PhotoService.getPhoto({ resolution: 'HD', limit: 5 });
-    setPhotos(res);
-  }, []);
-
-  const goPrev = useCallback(async () => {
-    index.current = clampWithinPagination(index.current - 1);
-    slide();
-  }, [clampWithinPagination, slide]);
-
-  const goNext = useCallback(async () => {
-    index.current = clampWithinPagination(index.current + 1);
-    slide();
-  }, [clampWithinPagination, slide]);
+  const clampRange = useMemo(() => clamp(0, contents.length - 1), [contents]);
 
   const gotoPage = useCallback(
-    async (i) => {
-      index.current = i;
+    (i) => {
+      index.current = clampRange(i);
       slide();
     },
-    [slide]
+    [clampRange, slide]
   );
+
+  const goPrev = useCallback(() => {
+    gotoPage(index.current - 1);
+  }, [gotoPage]);
+
+  const goNext = useCallback(() => {
+    gotoPage(index.current + 1);
+  }, [gotoPage]);
 
   const bind = useGesture(
     ({ down, delta: [xDelta], direction: [xDir], distance, cancel }) => {
       const dir = xDir > 0 ? -1 : 1;
 
       if (down && distance > window.innerWidth / 5) {
-        index.current = clampWithinPagination(index.current + dir);
+        index.current = clampRange(index.current + dir);
         setPage(index.current);
         cancel();
       }
@@ -111,10 +98,6 @@ function Carousel() {
     }
   );
 
-  useEffect(() => {
-    getPhotos();
-  }, [getPhotos]);
-
   useKeyDown(['ArrowLeft'], () => {
     goPrev();
   });
@@ -125,7 +108,7 @@ function Carousel() {
 
   return (
     <div className="carousel">
-      {!!photos.length && (
+      {!!contents.length && (
         <>
           <NavigationButton color="light" direction="left" onClick={goPrev} />
           <NavigationButton color="light" direction="right" onClick={goNext} />
@@ -147,24 +130,20 @@ function Carousel() {
                     (scale, rotateY) =>
                       `perspective(1400px) rotateY(${rotateY}deg) scale(${scale}) `
                   ),
-                  backgroundImage: `url(${photos[i]})`,
+                  backgroundImage: `url(${contents[i]})`,
                 }}
               />
             </animated.div>
           ))}
-          <div className="carousel-indicators">
-            {photos.map((photo, i) => (
-              <PageIndicator
-                key={i}
-                onClick={() => gotoPage(i)}
-                isActive={i === page}
-              />
-            ))}
-          </div>
+          <PageIndicators
+            length={contents.length}
+            currentPage={page}
+            onClick={gotoPage}
+          />
         </>
       )}
     </div>
   );
-}
+};
 
 export default Carousel;

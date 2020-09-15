@@ -1,9 +1,21 @@
-import React from 'react';
-import Carousel from '../app/carousel/carousel';
+import React, { useCallback, useEffect, useState } from 'react';
+import { PhotoService } from '@demo-monorepo/service-photo';
+import { Carousel } from '@demo-monorepo/carousel';
 import './app.scss';
 
 export const App = () => {
-  return <Carousel />;
+  const [photos, setPhotos] = useState([]);
+
+  const getPhotos = useCallback(async () => {
+    const res = await PhotoService.getPhoto({ resolution: 'HD', limit: 5 });
+    setPhotos(res);
+  }, []);
+
+  useEffect(() => {
+    getPhotos();
+  }, [getPhotos]);
+
+  return <Carousel contents={photos} />;
 };
 
 export default App;
