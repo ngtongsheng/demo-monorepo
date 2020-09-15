@@ -5,10 +5,6 @@ export interface User {
   location: string;
 }
 
-export interface Photo {
-  url: string;
-}
-
 export interface CoronaCase {
   id: string;
   cases: number;

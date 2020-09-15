@@ -60,8 +60,8 @@ function Carousel() {
   ]);
 
   const getPhotos = useCallback(async () => {
-    const res = await PhotoService.getPhoto();
-    setPhotos(res.slice(0, 7));
+    const res = await PhotoService.getPhoto({ resolution: 'HD', limit: 5 });
+    setPhotos(res);
   }, []);
 
   const goPrev = useCallback(async () => {
@@ -147,7 +147,7 @@ function Carousel() {
                     (scale, rotateY) =>
                       `perspective(1400px) rotateY(${rotateY}deg) scale(${scale}) `
                   ),
-                  backgroundImage: `url(${photos[i].url})`,
+                  backgroundImage: `url(${photos[i]})`,
                 }}
               />
             </animated.div>
