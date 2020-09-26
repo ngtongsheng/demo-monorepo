@@ -1,4 +1,4 @@
-import db from '../db';
+import axios from 'axios';
 import {
   all,
   includes,
@@ -18,6 +18,7 @@ import {
   ChannelRaw,
   Filter,
   ListingApiProps,
+  Show,
 } from '@demo-monorepo/api-interfaces';
 
 const ORDERS = {
@@ -25,54 +26,93 @@ const ORDERS = {
   ascend,
 };
 
-const applyFilters = (filters) =>
-  filter((channel) =>
+const applyFilters = (filters) => {
+  const convertResolutionToBoolean = (filter: Filter) => {
+    if (filter.field === 'isHd') {
+      filter.values = filter.values.map((value) => value === 'HD');
+    }
+
+    return filter;
+  };
+
+  const converted = map(convertResolutionToBoolean)(filters);
+
+  const byFields = (channel) =>
     pipe(
-      map(({ field, values }: Filter): boolean =>
-        includes(channel[field], values)
-      ),
+      map(({ field, values }: Filter): boolean => {
+        return includes(channel[field], values);
+      }),
       all(equals(true))
-    )(filters)
+    )(converted);
+
+  return filter(byFields);
+};
+
+const getAggregations = (channels): Filter[] => {
+  return pipe(
+    map((field: string) => ({
+      field,
+      values: pipe(
+        groupBy((channel) => channel[field]),
+        keys
+      )(channels),
+    })),
+    map((filter: Filter) => {
+      if (filter.field === 'isHd') {
+        filter.values = filter.values.map((value) =>
+          value === 'false' ? 'SD' : 'HD'
+        );
+      }
+
+      return filter;
+    })
+  )(['language', 'category', 'isHd']);
+};
+
+export default async (req, res) => {
+  const { data } = await axios.get(
+    'https://contenthub-api.eco.astro.com.my/channel/all.json'
   );
 
-const getAggregations = (channels) =>
-  map((field: string) => ({
-    field,
-    values: pipe(
-      groupBy((channel) => channel[field]),
-      keys
-    )(channels),
-  }))(['language', 'category', 'isHd']);
+  const channels: ChannelRaw[] = data.response;
 
-export default (req, res) => {
-  const collection = db.get('channels');
-  const total = collection.size().value();
-
-  const {
-    page = 0,
-    size = total,
-    sort,
-    order,
-    filters = [],
-  } = req.body as ListingApiProps;
-
-  const channelsString = JSON.stringify(collection.values());
-  const channels: ChannelRaw[] = JSON.parse(channelsString);
-
-  const pageStart = page * size;
-  const pageEnd = pageStart + size;
-  const orderMethod = (ORDERS[order] || ascend)(prop(sort));
-
-  const aggregations = getAggregations(channels);
+  const { page = 0, sort, order, filters = [] } = req.body as ListingApiProps;
 
   const filtered = applyFilters(filters)(channels);
+  console.log('filtered', filtered.length);
+  const orderMethod = (ORDERS[order] || ascend)(prop(sort));
+  const aggregations = getAggregations(channels);
+
+  const { size = filtered.length } = req.body as ListingApiProps;
+  const pageStart = page * size;
+  const pageEnd = pageStart + size;
+
   const sorted = sortWith([orderMethod])(filtered);
   const sliced = sorted.slice(pageStart, pageEnd);
 
   res.send({
     total: filtered.length,
     channels: sliced.map(
-      ({ id, title, stbNumber, imageUrl, isAstroGoExclusive }): Channel => {
+      ({
+        id,
+        title,
+        stbNumber,
+        imageUrl,
+        isAstroGoExclusive,
+        currentSchedule,
+      }: ChannelRaw): Channel => {
+        const shows = currentSchedule
+          .map(
+            (schedule): Show => ({
+              id: `${schedule.title.split(' ').join('-')}-${
+                schedule.siTrafficKey
+              }`,
+              title: schedule.title,
+              showtime: schedule.datetimeInUtc,
+            })
+          )
+          .slice(0, 3);
+
         return {
           id: `${title.split(' ').join('-')}-${id}`,
           title,
@@ -80,6 +120,7 @@ export default (req, res) => {
             ? 'Astro GO Exclusive Channels'
             : `CH-${stbNumber}`,
           thumbnail: imageUrl,
+          shows,
         };
       }
     ),

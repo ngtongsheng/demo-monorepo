@@ -1,5 +1,6 @@
 .filter {
   .tag {
+    user-select: none;
     transition: all 0.3s;
     cursor: pointer;
     &:hover:not(.is-danger) {

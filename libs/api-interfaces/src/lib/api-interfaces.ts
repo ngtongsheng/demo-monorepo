@@ -14,7 +14,7 @@ export type SortOrder = 'ascend' | 'descend' | '';
 
 export interface Filter {
   field: string;
-  values: (string | number)[];
+  values: (string | number | boolean)[];
 }
 
 export interface ListingApiProps {

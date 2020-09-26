@@ -180,7 +180,7 @@ export const ChannelListing = () => {
               <b>Channels</b>
             </div>
             {!channels && <p>Loading...</p>}
-            {!total && (
+            {!total && channels && (
               <p>Oops, no channels found. Please try a different filter...</p>
             )}
           </Column>

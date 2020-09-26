@@ -3,7 +3,7 @@ type ChannelResoltion = 'SD' | 'HD';
 export interface Show {
   id: string;
   title: string;
-  showtime: Date;
+  showtime: string;
 }
 
 export interface Channel {
@@ -16,6 +16,12 @@ export interface Channel {
   shows?: Show[];
 }
 
+export interface CurrentSchedule {
+  title: string;
+  datetimeInUtc: string;
+  siTrafficKey: string;
+}
+
 export interface ChannelRaw {
   language: string;
   id: string;
@@ -23,4 +29,5 @@ export interface ChannelRaw {
   stbNumber: number;
   imageUrl: string;
   isAstroGoExclusive: boolean;
+  currentSchedule: CurrentSchedule[];
 }
