@@ -1,3 +1,4 @@
+export * from './lib/utils/ellipsis/ellipsis';
 export * from './lib/elements/chat-bubble/chat-bubble';
 export * from './lib/elements/fa-icon/fa-icon';
 export * from './lib/elements/input/input';

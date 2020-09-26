@@ -1,16 +1,17 @@
 import axios from 'axios';
-import { Photo } from '@demo-monorepo/api-interfaces';
 
 export default (req, res) => {
+  const limit = req.params.limit || '12';
+
   axios
     .get(
-      'https://picsum.photos/v2/list?limit=12&page=' +
+      `https://picsum.photos/v2/list?limit=${limit}&page=` +
         Math.floor(Math.random() * 100)
     )
     .then((response) => {
       const results = response.data;
 
-      const photos: Photo[] = results.map((result) => {
+      const photos = results.map((result) => {
         return {
           url: result['download_url'],
         };

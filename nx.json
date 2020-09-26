@@ -86,6 +86,9 @@
     },
     "api-tv-channels": {
       "tags": []
+    },
+    "service-channel": {
+      "tags": []
     }
   }
 }

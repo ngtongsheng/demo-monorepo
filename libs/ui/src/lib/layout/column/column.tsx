@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 
 import './column.scss';
 
-export interface ColumnProps {
+export interface ColumnProps extends HTMLAttributes<HTMLDivElement> {
   isNarrow?: boolean;
   size?: number;
 }

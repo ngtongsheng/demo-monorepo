@@ -1,13 +1,22 @@
-import React, { FunctionComponent } from 'react';
-
+import React, { FunctionComponent, HTMLAttributes } from 'react';
+import classNames from 'classnames';
 import './card.scss';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface CardProps {}
+export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+  isFullHeight?: boolean;
+}
 
-export const Card: FunctionComponent<CardProps> = ({ children }) => {
+export const Card: FunctionComponent<CardProps> = ({
+  isFullHeight = false,
+  className,
+  children,
+}) => {
+  const classes = classNames('card', className, {
+    'is-full-height': isFullHeight,
+  });
+
   return (
-    <div className="card">
+    <div className={classes}>
       <div className="card-content">{children}</div>
     </div>
   );

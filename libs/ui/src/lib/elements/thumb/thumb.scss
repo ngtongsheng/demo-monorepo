@@ -1,17 +1,32 @@
 .thumb {
-  border-radius: 50%;
-  width: 4em;
-  height: 4em;
-  max-width: 4em;
+  $defaultSize: 4.5em;
+  $mediumSize: 7em;
+  $largeSize: 10em;
+
+  width: $defaultSize;
+  max-width: $defaultSize;
   vertical-align: middle;
+
   &.is-medium {
-    width: 7em;
-    height: 7em;
-    max-width: 7em;
+    width: $mediumSize;
+    max-width: $mediumSize;
   }
+
   &.is-large {
-    width: 10em;
-    height: 10em;
-    max-width: 10em;
+    width: $largeSize;
+    max-width: $largeSize;
+  }
+
+  &.is-rounded {
+    height: $defaultSize;
+    border-radius: 50%;
+
+    &.is-medium {
+      height: $mediumSize;
+    }
+
+    &.is-large {
+      height: $largeSize;
+    }
   }
 }

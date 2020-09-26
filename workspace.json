@@ -874,6 +874,33 @@
           }
         }
       }
+    },
+    "service-channel": {
+      "root": "libs/service-channel",
+      "sourceRoot": "libs/service-channel/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/service-channel/tsconfig.lib.json",
+              "libs/service-channel/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/service-channel/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/service-channel/jest.config.js",
+            "tsConfig": "libs/service-channel/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

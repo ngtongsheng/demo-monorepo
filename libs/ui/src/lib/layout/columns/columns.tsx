@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 
 import './columns.scss';
 
-export interface ColumnsProps {
+export interface ColumnsProps extends HTMLAttributes<HTMLDivElement> {
   isVcentered?: boolean;
   isMultiline?: boolean;
 }
