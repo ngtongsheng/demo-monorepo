@@ -76,6 +76,16 @@
     },
     "carousel": {
       "tags": []
+    },
+    "tv-channels": {
+      "tags": []
+    },
+    "tv-channels-e2e": {
+      "tags": [],
+      "implicitDependencies": ["tv-channels"]
+    },
+    "api-tv-channels": {
+      "tags": []
     }
   }
 }
