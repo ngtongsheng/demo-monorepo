@@ -1,0 +1,14 @@
+.pagination {
+  margin-top: 0.5em;
+  .tag {
+    user-select: none;
+  }
+}
+
+.channel-listing {
+  transition: all 0.3s;
+  &.is-loading {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+}

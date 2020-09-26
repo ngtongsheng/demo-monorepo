@@ -1,5 +1,9 @@
 .channel-card {
   height: 100%;
+  transition: all 0.3s;
+  &:hover {
+    box-shadow: inset 0 0 0 1px #f14668;
+  }
   .columns {
     .column:last-child {
       min-width: 0;

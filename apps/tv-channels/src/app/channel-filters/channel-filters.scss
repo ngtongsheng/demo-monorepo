@@ -1,0 +1,9 @@
+.filter {
+  .tag {
+    transition: all 0.3s;
+    cursor: pointer;
+    &:hover:not(.is-danger) {
+      background-color: #ddd;
+    }
+  }
+}

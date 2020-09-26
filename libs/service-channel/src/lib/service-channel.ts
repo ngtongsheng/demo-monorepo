@@ -1,8 +1,37 @@
 import axios from 'axios';
-import { Channel } from '@demo-monorepo/api-interfaces';
+import { pipe, map, groupBy, toPairs } from 'ramda';
+import {
+  Channel,
+  ListingApiProps,
+  Filter,
+} from '@demo-monorepo/api-interfaces';
 
-const getChannels = (): Promise<Channel[]> => {
-  return axios.get('/channel').then(({ data }) => data);
+const getChannels = ({
+  page,
+  size,
+  sort,
+  order,
+  filters = new Set<string>(),
+}: ListingApiProps = {}): Promise<{ total: number; channels: Channel[] }> => {
+  return axios
+    .post('/channel', {
+      page,
+      size,
+      sort,
+      order,
+      filters: pipe(
+        map(JSON.parse),
+        groupBy<{ field: string; value: string }>(({ field }) => field),
+        toPairs,
+        map(
+          ([field, values]): Filter => ({
+            field,
+            values: values.map(({ value }) => value),
+          })
+        )
+      )(Array.from(filters as Set<string>)),
+    })
+    .then(({ data }) => data);
 };
 
 const getChannel = (id): Promise<Channel> => {

@@ -11,14 +11,20 @@ export interface ColumnsProps extends HTMLAttributes<HTMLDivElement> {
 export const Columns: FunctionComponent<ColumnsProps> = ({
   isVcentered = false,
   isMultiline = false,
+  className,
   children,
+  ...props
 }) => {
-  const className: string = classNames('columns', {
+  const classes: string = classNames(className, 'columns', {
     'is-vcentered': isVcentered,
     'is-multiline': isMultiline,
   });
 
-  return <div className={className}>{children}</div>;
+  return (
+    <div {...props} className={classes}>
+      {children}
+    </div>
+  );
 };
 
 export default Columns;

@@ -2,7 +2,7 @@ import React, { FunctionComponent, ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames';
 import './button.scss';
 
-type Color = 'primary' | 'dark' | 'light';
+type Color = 'primary' | 'dark' | 'light' | 'danger';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color: Color;

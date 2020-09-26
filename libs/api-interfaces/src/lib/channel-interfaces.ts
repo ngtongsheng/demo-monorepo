@@ -15,3 +15,12 @@ export interface Channel {
   resolution?: ChannelResoltion;
   shows?: Show[];
 }
+
+export interface ChannelRaw {
+  language: string;
+  id: string;
+  title: string;
+  stbNumber: number;
+  imageUrl: string;
+  isAstroGoExclusive: boolean;
+}

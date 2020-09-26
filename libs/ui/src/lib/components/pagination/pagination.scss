@@ -1,0 +1,64 @@
+.pagination {
+  &.is-rounded {
+    .pagination-next,
+    .pagination-previous {
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      background: #ffffff;
+    }
+  }
+  .pagination-next,
+  .pagination-previous {
+    &.is-backgroundless {
+      padding: 0;
+      min-width: auto;
+      height: auto;
+      border: none;
+      font-size: 1.5em;
+    }
+
+    &:active {
+      box-shadow: none;
+    }
+
+    &[disabled] {
+      &.is-backgroundless {
+        color: red;
+        background: none;
+      }
+    }
+  }
+
+  .pagination-next,
+  .pagination-previous,
+  .pagination-link {
+    transition: border-color 0.3s;
+
+    &:not([disabled]) {
+      cursor: pointer;
+    }
+  }
+
+  .pagination-link {
+    &.is-current {
+      cursor: default;
+      border-color: #f14668;
+    }
+  }
+  .pagination-next,
+  .pagination-previous {
+    .icon {
+      width: auto;
+    }
+  }
+
+  .pagination-ellipsis {
+    width: 2.75rem;
+  }
+
+  [disabled] {
+    * {
+      cursor: not-allowed;
+    }
+  }
+}
