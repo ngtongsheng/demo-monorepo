@@ -79,7 +79,6 @@ export default async (req, res) => {
   const { page = 0, sort, order, filters = [] } = req.body as ListingApiProps;
 
   const filtered = applyFilters(filters)(channels);
-  console.log('filtered', filtered.length);
   const orderMethod = (ORDERS[order] || ascend)(prop(sort));
   const aggregations = getAggregations(channels);
 
@@ -108,7 +107,7 @@ export default async (req, res) => {
                 schedule.siTrafficKey
               }`,
               title: schedule.title,
-              showtime: schedule.datetimeInUtc,
+              showtime: schedule.datetime,
             })
           )
           .slice(0, 3);

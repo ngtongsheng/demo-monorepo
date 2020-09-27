@@ -4,15 +4,18 @@ import './card.scss';
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   isFullHeight?: boolean;
+  isRounded?: boolean;
 }
 
 export const Card: FunctionComponent<CardProps> = ({
   isFullHeight = false,
+  isRounded = false,
   className,
   children,
 }) => {
   const classes = classNames('card', className, {
     'is-full-height': isFullHeight,
+    'is-rounded': isRounded,
   });
 
   return (

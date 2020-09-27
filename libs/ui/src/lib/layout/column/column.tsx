@@ -10,17 +10,18 @@ export interface ColumnProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Column: FunctionComponent<ColumnProps> = ({
   isNarrow = false,
+  className,
   children,
   size,
   ...props
 }) => {
-  const className: string = classNames('column', {
+  const classes: string = classNames('column', className, {
     'is-narrow': isNarrow,
     ['is-' + size]: size,
   });
 
   return (
-    <div className={className} {...props}>
+    <div className={classes} {...props}>
       {children}
     </div>
   );

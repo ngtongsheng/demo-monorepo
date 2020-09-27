@@ -18,7 +18,7 @@ export interface Channel {
 
 export interface CurrentSchedule {
   title: string;
-  datetimeInUtc: string;
+  datetime: string;
   siTrafficKey: string;
 }
 

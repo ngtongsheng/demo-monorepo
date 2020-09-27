@@ -5,11 +5,15 @@ import './columns.scss';
 
 export interface ColumnsProps extends HTMLAttributes<HTMLDivElement> {
   isVcentered?: boolean;
+  isNoMarginBottom?: boolean;
+  isGapless?: boolean;
   isMultiline?: boolean;
 }
 
 export const Columns: FunctionComponent<ColumnsProps> = ({
   isVcentered = false,
+  isNoMarginBottom = false,
+  isGapless = false,
   isMultiline = false,
   className,
   children,
@@ -17,6 +21,8 @@ export const Columns: FunctionComponent<ColumnsProps> = ({
 }) => {
   const classes: string = classNames(className, 'columns', {
     'is-vcentered': isVcentered,
+    'is-no-margin-bottom': isNoMarginBottom,
+    'is-gapless': isGapless,
     'is-multiline': isMultiline,
   });
 

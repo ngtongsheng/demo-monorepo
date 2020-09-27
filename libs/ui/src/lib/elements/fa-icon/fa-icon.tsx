@@ -7,6 +7,7 @@ type Name =
   | 'paper-plane'
   | 'star'
   | 'sort'
+  | 'times'
   | 'chevron-left'
   | 'chevron-right'
   | 'sort-alpha-down'

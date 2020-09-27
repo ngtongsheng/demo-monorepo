@@ -1,0 +1,5 @@
+.columns.is-gapless:not(:last-child) {
+  &.is-no-margin-bottom {
+    margin-bottom: 0;
+  }
+}

@@ -48,10 +48,7 @@ const getChannels = ({
     cancelToken: source.token,
   };
 
-  return axios.post('/channel', body, options).then(({ data }) => {
-    console.log(data);
-    return data;
-  });
+  return axios.post('/channel', body, options).then(({ data }) => data);
 };
 
 const getChannel = (id): Promise<Channel> => {

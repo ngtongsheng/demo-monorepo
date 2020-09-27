@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useState,
   FunctionComponent,
+  useRef,
 } from 'react';
 import classNames from 'classnames';
 import { clamp } from 'ramda';
@@ -13,7 +14,7 @@ import './pagination.scss';
 import FaIcon from '../../elements/fa-icon/fa-icon';
 
 export interface PaginationProps {
-  initialIndex?: number;
+  page?: number;
   total: number;
   size: number;
   onChange: (n: number) => void;
@@ -30,18 +31,18 @@ const generateSequences = (initialValue, count) => {
 };
 
 export const Pagination: FunctionComponent<PaginationProps> = ({
-  initialIndex = 0,
+  page = 0,
   total,
   size,
   onChange,
 }) => {
   const classes = classNames('cd', 'pagination', 'is-rounded');
-
+  const isInternalAction = useRef(false);
   const minTotal = Math.max(total, 0);
   const minSize = Math.max(size, 1);
   const last = Math.ceil(minTotal / minSize);
   const lastIndex = last - 1;
-  const allowedInitialIndex = clamp(0, lastIndex, initialIndex);
+  const allowedInitialIndex = clamp(0, lastIndex, page);
   const hook = useIndex(allowedInitialIndex, lastIndex);
   const [index, setIndex, decrease, increase] = hook;
 
@@ -81,25 +82,34 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
       return;
     }
 
-    onChange(index);
-  }, [index, onChange]);
+    console.log('isInternalAction.current', index);
+    console.log('isInternalAction.current', isInternalAction.current);
+
+    if (isInternalAction.current) {
+      isInternalAction.current = false;
+      onChange(index);
+    }
+  }, [index, page, onChange]);
 
   useEffect(() => {
-    setIndex(initialIndex);
-  }, [initialIndex, setIndex]);
+    setIndex(page);
+  }, [page, setIndex]);
 
   const handlePageChange = useCallback(
     (page) => {
+      isInternalAction.current = true;
       setIndex(page - 1);
     },
     [setIndex]
   );
 
   const handlePrevious = useCallback(() => {
+    isInternalAction.current = true;
     decrease();
   }, [decrease]);
 
   const handleNext = useCallback(() => {
+    isInternalAction.current = true;
     increase();
   }, [increase]);
 
@@ -118,7 +128,10 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
               </button>
             </li>
 
-            <PaginationLink isCurrent={isFirst} onClick={() => setIndex(0)}>
+            <PaginationLink
+              isCurrent={isFirst}
+              onClick={() => handlePageChange(1)}
+            >
               {first}
             </PaginationLink>
 
@@ -146,7 +159,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
 
             <PaginationLink
               isCurrent={isLast}
-              onClick={() => setIndex(lastIndex)}
+              onClick={() => handlePageChange(lastIndex + 1)}
             >
               {last}
             </PaginationLink>

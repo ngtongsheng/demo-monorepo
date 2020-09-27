@@ -7,12 +7,14 @@ import './channel-sort-button.scss';
 export interface ChannelSortButtonProps {
   sort: string;
   order: SortOrder;
+  disabled?: boolean;
   onSort: (sort: string, order: SortOrder) => void;
 }
 
 export const ChannelSortButton: FunctionComponent<ChannelSortButtonProps> = ({
   sort,
   order,
+  disabled,
   onSort,
 }) => {
   const handleClick = useCallback(() => {
@@ -30,7 +32,11 @@ export const ChannelSortButton: FunctionComponent<ChannelSortButtonProps> = ({
   }, [onSort, order, sort]);
 
   return (
-    <Button onClick={handleClick} color={sort ? 'danger' : 'light'}>
+    <Button
+      disabled={disabled}
+      onClick={handleClick}
+      color={sort ? 'danger' : 'light'}
+    >
       <span>Sort by title</span> {order === '' && <FaIcon name="sort" />}
       {order === 'ascend' && <FaIcon name="sort-alpha-down" />}
       {order === 'descend' && <FaIcon name="sort-alpha-up-alt" />}

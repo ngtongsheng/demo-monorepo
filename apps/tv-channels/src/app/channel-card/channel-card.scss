@@ -1,12 +1,44 @@
 .channel-card {
   height: 100%;
   transition: all 0.3s;
+
   &:hover {
-    box-shadow: inset 0 0 0 1px #f14668;
+    transform: translateY(-2px);
   }
+
   .columns {
     .column:last-child {
       min-width: 0;
     }
+  }
+
+  .showtime {
+    .column {
+      min-width: 6rem;
+
+      &:first-child {
+        text-align: right;
+        transform: translateX(-1.5em);
+      }
+    }
+
+    margin-bottom: 0.5em;
+
+    &:first-child {
+      font-weight: bold;
+    }
+  }
+
+  img {
+    animation: fadein 0.3s;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

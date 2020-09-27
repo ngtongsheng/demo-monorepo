@@ -1,9 +1,12 @@
-.filter {
+.selected-filters {
   .tag {
-    user-select: none;
     transition: all 0.3s;
-    cursor: pointer;
+    &.is-disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
 
+    cursor: pointer;
     &:hover:not(.is-light) {
       opacity: 0.7;
     }

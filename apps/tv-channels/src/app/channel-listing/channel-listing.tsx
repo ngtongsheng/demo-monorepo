@@ -7,8 +7,9 @@ import ChannelCard from '../channel-card/channel-card';
 import ChannelFilters from '../channel-filters/channel-filters';
 import ChannelSortButton from '../channel-sort-button/channel-sort-button';
 import './channel-listing.scss';
+import ChannelSelectedFilters from '../channel-selected-filters/channel-selected-filters';
 
-const PAGE_SIZE = 18;
+const PAGE_SIZE = 12;
 
 const SUCCESS_GET_CHANNEL = 'SUCCESS_GET_CHANNEL';
 const UPDATE_SELECTED_FILTER = 'UPDATE_SELECTED_FILTER';
@@ -100,7 +101,7 @@ export const ChannelListing = () => {
     aggregations,
     selectedFilters,
     isLoading,
-  } = state;
+  } = state as ChannelListingProps;
 
   const pageStart = page * PAGE_SIZE + 1;
   const pageEnd = Math.min(total, page * PAGE_SIZE + PAGE_SIZE);
@@ -125,6 +126,16 @@ export const ChannelListing = () => {
     });
   }, [page, selectedFilters, sort, order]);
 
+  const handlePageChange = useCallback((currentPage: number) => {
+    console.log(currentPage);
+    dispatch({
+      type: UPDATE_PAGE,
+      payload: {
+        page: currentPage,
+      },
+    });
+  }, []);
+
   const handleFilterChange = useCallback(
     (currentSelectedFilters: Set<string>) => {
       dispatch({
@@ -135,22 +146,6 @@ export const ChannelListing = () => {
       });
     },
     []
-  );
-
-  const handlePageChange = useCallback(
-    (currentPage: number) => {
-      if (currentPage === page) {
-        return;
-      }
-
-      dispatch({
-        type: UPDATE_PAGE,
-        payload: {
-          page: currentPage,
-        },
-      });
-    },
-    [page]
   );
 
   const handleSortChange = useCallback((currentSort, currentOrder) => {
@@ -174,31 +169,45 @@ export const ChannelListing = () => {
       })}
     >
       <Column>
-        <Columns isMultiline isVcentered>
-          <Column>
+        <Columns isMultiline isVcentered className="channel-heading is-mobile">
+          <Column className="is-two-thirds-mobile">
             <div className="title is-3">
               <b>Channels</b>
             </div>
-            {!channels && <p>Loading...</p>}
-            {!total && channels && (
-              <p>Oops, no channels found. Please try a different filter...</p>
-            )}
           </Column>
+
           {!!total && (
             <Column isNarrow>
-              {pageStart} to {pageEnd} of {total} channels
+              <span>
+                {pageStart} to {pageEnd} of {total} channels
+              </span>
+              <span>
+                {pageStart}-{pageEnd} of {total}
+              </span>
             </Column>
           )}
-          {!!total && (
-            <Column isNarrow>
-              <ChannelSortButton
-                sort={sort}
-                order={order}
-                onSort={handleSortChange}
-              />
-            </Column>
-          )}
+
+          <Column isNarrow>
+            <ChannelSortButton
+              disabled={!total}
+              sort={sort}
+              order={order}
+              onSort={handleSortChange}
+            />
+          </Column>
         </Columns>
+        <Columns isMultiline>
+          <Column>
+            <ChannelSelectedFilters
+              selectedFilters={selectedFilters}
+              onChange={handleFilterChange}
+            />
+          </Column>
+        </Columns>
+        {!channels && <p>Loading...</p>}
+        {!total && channels && (
+          <p>Oops, no channels found. Please try a different filter...</p>
+        )}
         {!!total && (
           <>
             <Columns isMultiline>
@@ -213,7 +222,7 @@ export const ChannelListing = () => {
               <Column></Column>
               <Column isNarrow>
                 <Pagination
-                  initialIndex={page}
+                  page={page}
                   size={PAGE_SIZE}
                   total={total}
                   onChange={handlePageChange}
@@ -227,7 +236,7 @@ export const ChannelListing = () => {
         <ChannelFilters
           selectedFilters={selectedFilters}
           aggregations={aggregations}
-          onSelect={handleFilterChange}
+          onChange={handleFilterChange}
         />
       </Column>
     </Columns>

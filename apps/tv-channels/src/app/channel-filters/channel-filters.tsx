@@ -12,27 +12,27 @@ const LABELS = {
 export interface ChannelFiltersProps {
   aggregations: Filter[];
   selectedFilters: Set<string>;
-  onSelect?: (s: Set<string>) => void;
+  onChange?: (s: Set<string>) => void;
 }
 
 export const ChannelFilters: FunctionComponent<ChannelFiltersProps> = ({
   aggregations,
   selectedFilters,
-  onSelect,
+  onChange,
 }) => {
-  const handleClick = useCallback(
+  const handleFilterChange = useCallback(
     (key: string) => {
       const isSelected = selectedFilters.has(key);
 
       if (isSelected) {
         selectedFilters.delete(key);
-        onSelect(new Set(selectedFilters));
+        onChange(new Set(selectedFilters));
         return;
       }
 
-      onSelect(new Set(selectedFilters).add(key));
+      onChange(new Set(selectedFilters).add(key));
     },
-    [onSelect, selectedFilters]
+    [onChange, selectedFilters]
   );
 
   return (
@@ -46,7 +46,11 @@ export const ChannelFilters: FunctionComponent<ChannelFiltersProps> = ({
               const color = isSelected ? 'danger' : 'light';
 
               return (
-                <Tag key={value} color={color} onClick={() => handleClick(key)}>
+                <Tag
+                  key={value}
+                  color={color}
+                  onClick={() => handleFilterChange(key)}
+                >
                   {value}
                 </Tag>
               );
