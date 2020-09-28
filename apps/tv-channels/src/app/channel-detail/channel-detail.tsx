@@ -141,8 +141,11 @@ export const ChannelDetail: FunctionComponent = () => {
             <PanelBlock>
               {weeklyShows
                 ?.filter(({ date }) => convertToDayOfWeek(date) === currentDay)
-                .map(({ shows }, index) => (
-                  <ChannelShowtimes shows={shows} isShowOnNow={index === 0} />
+                .map(({ shows }) => (
+                  <ChannelShowtimes
+                    shows={shows}
+                    isShowOnNow={currentDay === 'Today'}
+                  />
                 ))}
             </PanelBlock>
           </Panel>
