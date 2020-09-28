@@ -4,6 +4,7 @@ import React, {
   useReducer,
   createContext,
 } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { ChannelService } from '@demo-monorepo/service-channel';
 import { Channel, Filter, SortOrder } from '@demo-monorepo/api-interfaces';
@@ -14,6 +15,7 @@ import ChannelSortButton from '../channel-sort-button/channel-sort-button';
 import ChannelSelectedFilters from '../channel-selected-filters/channel-selected-filters';
 import ChannelSearch from '../channel-search/channel-search';
 import ChannelPagination from '../channel-pagination/channel-pagination';
+
 import './channel-listing.scss';
 
 export const CHANNEL_LISTING_SIZE = 12;
@@ -220,7 +222,9 @@ export const ChannelListing = () => {
               <Columns isMultiline>
                 {channels?.map((channel) => (
                   <Column key={channel.id} size={4}>
-                    <ChannelCard {...channel} />
+                    <Link to={`/channels/${channel.id}`}>
+                      <ChannelCard {...channel} />
+                    </Link>
                   </Column>
                 ))}
               </Columns>

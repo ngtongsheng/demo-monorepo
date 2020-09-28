@@ -2,8 +2,10 @@
   height: 100%;
   transition: all 0.3s;
 
-  &:hover {
-    transform: translateY(-2px);
+  &.is-hoverable {
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 
   .columns {

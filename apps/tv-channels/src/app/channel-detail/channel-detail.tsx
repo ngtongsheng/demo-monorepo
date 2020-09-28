@@ -84,7 +84,12 @@ export const ChannelDetail: FunctionComponent = () => {
       >
         <Column>
           {channel && (
-            <ChannelCard {...channel} isShowtime={false} isDescription />
+            <ChannelCard
+              {...channel}
+              isShowtime={false}
+              isDescription
+              isHoverble={false}
+            />
           )}
         </Column>
       </Columns>
