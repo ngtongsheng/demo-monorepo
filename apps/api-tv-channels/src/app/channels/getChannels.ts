@@ -76,9 +76,20 @@ export default async (req, res) => {
 
   const channels: ChannelRaw[] = data.response;
 
-  const { page = 0, sort, order, filters = [] } = req.body as ListingApiProps;
+  const {
+    search = '',
+    page = 0,
+    sort,
+    order,
+    filters = [],
+  } = req.body as ListingApiProps;
 
-  const filtered = applyFilters(filters)(channels);
+  const searched = filter(({ title, stbNumber }) => {
+    const searchRegex = new RegExp(`${search}`, 'ig');
+    return searchRegex.test(title) || searchRegex.test(stbNumber);
+  })(channels);
+
+  const filtered = applyFilters(filters)(searched);
   const orderMethod = (ORDERS[order] || ascend)(prop(sort));
   const aggregations = getAggregations(channels);
 

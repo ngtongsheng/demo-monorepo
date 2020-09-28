@@ -1,6 +1,9 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, useCallback, useContext } from 'react';
 import { Panel, Tags, Tag } from '@demo-monorepo/ui';
-import { Filter } from '@demo-monorepo/api-interfaces';
+import {
+  ChannelListingContext,
+  UPDATE_SELECTED_FILTER,
+} from '../channel-listing/channel-listing';
 import './channel-filters.scss';
 
 const LABELS = {
@@ -8,31 +11,34 @@ const LABELS = {
   category: 'Categories',
   language: 'Languages',
 };
+export const ChannelFilters: FunctionComponent = () => {
+  const { state, dispatch } = useContext(ChannelListingContext);
+  const { selectedFilters, aggregations } = state;
 
-export interface ChannelFiltersProps {
-  aggregations: Filter[];
-  selectedFilters: Set<string>;
-  onChange?: (s: Set<string>) => void;
-}
-
-export const ChannelFilters: FunctionComponent<ChannelFiltersProps> = ({
-  aggregations,
-  selectedFilters,
-  onChange,
-}) => {
   const handleFilterChange = useCallback(
     (key: string) => {
       const isSelected = selectedFilters.has(key);
 
       if (isSelected) {
         selectedFilters.delete(key);
-        onChange(new Set(selectedFilters));
+        dispatch({
+          type: UPDATE_SELECTED_FILTER,
+          payload: {
+            selectedFilters: new Set(selectedFilters),
+          },
+        });
+
         return;
       }
 
-      onChange(new Set(selectedFilters).add(key));
+      dispatch({
+        type: UPDATE_SELECTED_FILTER,
+        payload: {
+          selectedFilters: new Set(selectedFilters).add(key),
+        },
+      });
     },
-    [onChange, selectedFilters]
+    [dispatch, selectedFilters]
   );
 
   return (

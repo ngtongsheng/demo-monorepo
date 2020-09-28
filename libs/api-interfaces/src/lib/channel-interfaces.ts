@@ -1,5 +1,10 @@
 type ChannelResoltion = 'SD' | 'HD';
 
+export interface DailyShows {
+  date: string;
+  shows: Show[];
+}
+
 export interface Show {
   id: string;
   title: string;
@@ -22,6 +27,10 @@ export interface CurrentSchedule {
   siTrafficKey: string;
 }
 
+export interface Schedule {
+  [date: string]: CurrentSchedule[];
+}
+
 export interface ChannelRaw {
   language: string;
   id: string;
@@ -30,4 +39,6 @@ export interface ChannelRaw {
   imageUrl: string;
   isAstroGoExclusive: boolean;
   currentSchedule: CurrentSchedule[];
+  schedule: Schedule;
+  description: string;
 }

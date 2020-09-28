@@ -1,27 +1,37 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, useCallback, useContext } from 'react';
 import { Tag, Tags, FaIcon } from '@demo-monorepo/ui';
 import './channel-selected-filters.scss';
+import {
+  ChannelListingContext,
+  UPDATE_SELECTED_FILTER,
+} from '../channel-listing/channel-listing';
 
-export interface ChannelSelectedFiltersProps {
-  selectedFilters: Set<string>;
-  onChange?: (s: Set<string>) => void;
-}
+export const ChannelSelectedFilters: FunctionComponent = () => {
+  const { state, dispatch } = useContext(ChannelListingContext);
+  const { selectedFilters } = state;
 
-export const ChannelSelectedFilters: FunctionComponent<ChannelSelectedFiltersProps> = ({
-  selectedFilters,
-  onChange,
-}) => {
   const handleFilterDelete = useCallback(
     (key: string) => {
       selectedFilters.delete(key);
-      onChange(new Set(selectedFilters));
+
+      dispatch({
+        type: UPDATE_SELECTED_FILTER,
+        payload: {
+          selectedFilters: new Set(selectedFilters),
+        },
+      });
     },
-    [onChange, selectedFilters]
+    [dispatch, selectedFilters]
   );
 
   const handleFilterDeleteAll = useCallback(() => {
-    onChange(new Set());
-  }, [onChange]);
+    dispatch({
+      type: UPDATE_SELECTED_FILTER,
+      payload: {
+        selectedFilters: new Set(),
+      },
+    });
+  }, [dispatch]);
 
   return (
     <Tags className="selected-filters">

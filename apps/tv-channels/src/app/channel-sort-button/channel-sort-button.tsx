@@ -1,45 +1,69 @@
-import React, { FunctionComponent, useCallback } from 'react';
-import { SortOrder } from '@demo-monorepo/api-interfaces';
+import React, { FunctionComponent, useCallback, useContext } from 'react';
 import { Button, FaIcon } from '@demo-monorepo/ui';
-
+import {
+  ChannelListingContext,
+  UPDATE_SORT,
+} from '../channel-listing/channel-listing';
 import './channel-sort-button.scss';
 
 export interface ChannelSortButtonProps {
-  sort: string;
-  order: SortOrder;
+  title: string;
+  field: string;
   disabled?: boolean;
-  onSort: (sort: string, order: SortOrder) => void;
 }
 
 export const ChannelSortButton: FunctionComponent<ChannelSortButtonProps> = ({
-  sort,
-  order,
+  title,
+  field,
   disabled,
-  onSort,
 }) => {
-  const handleClick = useCallback(() => {
-    if (!sort) {
-      onSort('title', 'ascend');
+  const { state, dispatch } = useContext(ChannelListingContext);
+  const { sort, order } = state;
+  const isCurrentSort = sort === field;
+
+  const handleSortChange = useCallback(() => {
+    if (!sort || sort !== field) {
+      dispatch({
+        type: UPDATE_SORT,
+        payload: {
+          sort: field,
+          order: 'ascend',
+        },
+      });
       return;
     }
 
     if (order === 'ascend') {
-      onSort('title', 'descend');
+      dispatch({
+        type: UPDATE_SORT,
+        payload: {
+          sort: field,
+          order: 'descend',
+        },
+      });
       return;
     }
 
-    onSort('', '');
-  }, [onSort, order, sort]);
+    dispatch({
+      type: UPDATE_SORT,
+      payload: {
+        sort: '',
+        order: '',
+      },
+    });
+  }, [dispatch, field, order, sort]);
 
   return (
     <Button
       disabled={disabled}
-      onClick={handleClick}
-      color={sort ? 'danger' : 'light'}
+      onClick={handleSortChange}
+      color={isCurrentSort ? 'danger' : 'light'}
     >
-      <span>Sort by title</span> {order === '' && <FaIcon name="sort" />}
-      {order === 'ascend' && <FaIcon name="sort-alpha-down" />}
-      {order === 'descend' && <FaIcon name="sort-alpha-up-alt" />}
+      <span>Sort by {title}</span> {!isCurrentSort && <FaIcon name="sort" />}
+      {isCurrentSort && order === 'ascend' && <FaIcon name="sort-alpha-down" />}
+      {isCurrentSort && order === 'descend' && (
+        <FaIcon name="sort-alpha-up-alt" />
+      )}
     </Button>
   );
 };

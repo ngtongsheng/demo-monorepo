@@ -18,6 +18,7 @@ const cancelPrevious = () => {
 };
 
 const getChannels = ({
+  search,
   page,
   size,
   sort,
@@ -27,6 +28,7 @@ const getChannels = ({
   cancelPrevious();
 
   const body = {
+    search,
     page,
     size,
     sort,

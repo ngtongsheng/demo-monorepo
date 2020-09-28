@@ -1,0 +1,16 @@
+.showtime {
+  .column {
+    min-width: 6rem;
+
+    &:first-child {
+      text-align: right;
+      transform: translateX(-1.5em);
+    }
+  }
+
+  margin-bottom: 0.5em;
+
+  &:first-child {
+    font-weight: bold;
+  }
+}

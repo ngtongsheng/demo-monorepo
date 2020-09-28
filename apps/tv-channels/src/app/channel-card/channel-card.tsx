@@ -1,16 +1,24 @@
 import React, { FunctionComponent } from 'react';
-import format from 'date-fns/format';
 import { Link } from 'react-router-dom';
 import { Card, Columns, Column, Thumb, Ellipsis } from '@demo-monorepo/ui';
 import { Channel } from '@demo-monorepo/api-interfaces';
+import ChannelShowtimes from '../channel-showtimes/channel-showtimes';
 import './channel-card.scss';
 
-export const ChannelCard: FunctionComponent<Channel> = ({
+export interface ChannelCardProps extends Channel {
+  isShowtime?: boolean;
+  isDescription?: boolean;
+}
+
+export const ChannelCard: FunctionComponent<ChannelCardProps> = ({
   id,
   title,
   thumbnail,
   channelId,
   shows,
+  description,
+  isShowtime = true,
+  isDescription = false,
 }) => {
   return (
     <Link to={`/channels/${id}`}>
@@ -26,27 +34,15 @@ export const ChannelCard: FunctionComponent<Channel> = ({
             </Ellipsis>
           </Column>
         </Columns>
-        <div>
-          {shows.map((show, index) => {
-            const { showtime } = show;
-            const time = format(new Date(showtime), 'hh:mm aaa');
-            const isNow = index === 0;
+        {isDescription && description && (
+          <Columns isVcentered className="is-mobile">
+            <Column isNarrow>
+              <p>{description}</p>
+            </Column>
+          </Columns>
+        )}
 
-            return (
-              <Columns
-                key={showtime}
-                className="showtime is-mobile"
-                isNoMarginBottom
-                isGapless
-              >
-                <Column isNarrow>{isNow ? 'On Now' : time}</Column>
-                <Column>
-                  <Ellipsis title={show.title}>{show.title}</Ellipsis>
-                </Column>
-              </Columns>
-            );
-          })}
-        </div>
+        {isShowtime && <ChannelShowtimes shows={shows} />}
       </Card>
     </Link>
   );

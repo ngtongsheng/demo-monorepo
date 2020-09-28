@@ -18,6 +18,7 @@ export interface Filter {
 }
 
 export interface ListingApiProps {
+  search?: string;
   page?: number;
   size?: number;
   sort?: string;

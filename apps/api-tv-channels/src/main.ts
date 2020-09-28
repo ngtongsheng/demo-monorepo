@@ -4,7 +4,7 @@
  */
 
 import * as express from 'express';
-import { getChannels } from './app/channels';
+import { getChannels, getChannel } from './app/channels';
 
 const app = express();
 const port = process.env.port || 3333;
@@ -22,7 +22,11 @@ const onConnect = () => {
   console.log(`Listening at http://localhost:${port}/api`);
 };
 
-app.use(accessControl).use(express.json()).post('/channel', getChannels);
+app
+  .use(accessControl)
+  .use(express.json())
+  .post('/channel', getChannels)
+  .get('/channel/:id', getChannel);
 
 const server = app.listen(port, onConnect);
 server.on('error', console.error);

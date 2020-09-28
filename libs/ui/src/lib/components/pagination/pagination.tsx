@@ -82,9 +82,6 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
       return;
     }
 
-    console.log('isInternalAction.current', index);
-    console.log('isInternalAction.current', isInternalAction.current);
-
     if (isInternalAction.current) {
       isInternalAction.current = false;
       onChange(index);

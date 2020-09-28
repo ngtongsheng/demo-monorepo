@@ -1,23 +1,31 @@
-import React, { useCallback, useEffect, useReducer } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useReducer,
+  createContext,
+} from 'react';
 import classNames from 'classnames';
 import { ChannelService } from '@demo-monorepo/service-channel';
 import { Channel, Filter, SortOrder } from '@demo-monorepo/api-interfaces';
-import { Columns, Column, Pagination } from '@demo-monorepo/ui';
+import { Columns, Column } from '@demo-monorepo/ui';
 import ChannelCard from '../channel-card/channel-card';
 import ChannelFilters from '../channel-filters/channel-filters';
 import ChannelSortButton from '../channel-sort-button/channel-sort-button';
-import './channel-listing.scss';
 import ChannelSelectedFilters from '../channel-selected-filters/channel-selected-filters';
+import ChannelSearch from '../channel-search/channel-search';
+import ChannelPagination from '../channel-pagination/channel-pagination';
+import './channel-listing.scss';
 
-const PAGE_SIZE = 12;
-
-const SUCCESS_GET_CHANNEL = 'SUCCESS_GET_CHANNEL';
-const UPDATE_SELECTED_FILTER = 'UPDATE_SELECTED_FILTER';
-const UPDATE_PAGE = 'UPDATE_PAGE';
-const UPDATE_SORT = 'UPDATE_SORT';
-const START_LOADING = 'START_LOADING';
+export const CHANNEL_LISTING_SIZE = 12;
+export const SUCCESS_GET_CHANNELS = 'SUCCESS_GET_CHANNELS';
+export const UPDATE_SELECTED_FILTER = 'UPDATE_SELECTED_FILTER';
+export const UPDATE_PAGE = 'UPDATE_PAGE';
+export const UPDATE_SORT = 'UPDATE_SORT';
+export const UPDATE_SEARCH = 'UPDATE_SEARCH';
+export const START_LOADING = 'START_LOADING';
 
 interface ChannelListingProps {
+  search: string;
   page: number;
   total: number;
   sort: string;
@@ -29,6 +37,7 @@ interface ChannelListingProps {
 }
 
 const initialState: ChannelListingProps = {
+  search: '',
   page: 0,
   total: 0,
   sort: '',
@@ -41,7 +50,7 @@ const initialState: ChannelListingProps = {
 
 const reducer = (state, { type, payload }) => {
   switch (type) {
-    case SUCCESS_GET_CHANNEL: {
+    case SUCCESS_GET_CHANNELS: {
       const { channels, total, aggregations } = payload;
       return {
         ...state,
@@ -78,6 +87,14 @@ const reducer = (state, { type, payload }) => {
       };
     }
 
+    case UPDATE_SEARCH: {
+      const { search } = payload;
+      return {
+        ...state,
+        search,
+      };
+    }
+
     case START_LOADING: {
       return {
         ...state,
@@ -90,6 +107,16 @@ const reducer = (state, { type, payload }) => {
   }
 };
 
+export const ChannelListingContext = createContext<{
+  state?: ChannelListingProps;
+  dispatch?: React.Dispatch<{
+    type: string;
+    payload: {
+      [f: string]: unknown;
+    };
+  }>;
+}>({});
+
 export const ChannelListing = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
@@ -98,13 +125,16 @@ export const ChannelListing = () => {
     page,
     sort,
     order,
-    aggregations,
     selectedFilters,
     isLoading,
+    search,
   } = state as ChannelListingProps;
 
-  const pageStart = page * PAGE_SIZE + 1;
-  const pageEnd = Math.min(total, page * PAGE_SIZE + PAGE_SIZE);
+  const pageStart = page * CHANNEL_LISTING_SIZE + 1;
+  const pageEnd = Math.min(
+    total,
+    page * CHANNEL_LISTING_SIZE + CHANNEL_LISTING_SIZE
+  );
 
   const getChannels = useCallback(async () => {
     dispatch({
@@ -113,133 +143,103 @@ export const ChannelListing = () => {
     });
 
     const payload = await ChannelService.getChannels({
+      search,
       page,
-      size: PAGE_SIZE,
+      size: CHANNEL_LISTING_SIZE,
       filters: selectedFilters,
       sort,
       order,
     });
 
     dispatch({
-      type: SUCCESS_GET_CHANNEL,
+      type: SUCCESS_GET_CHANNELS,
       payload,
     });
-  }, [page, selectedFilters, sort, order]);
-
-  const handlePageChange = useCallback((currentPage: number) => {
-    console.log(currentPage);
-    dispatch({
-      type: UPDATE_PAGE,
-      payload: {
-        page: currentPage,
-      },
-    });
-  }, []);
-
-  const handleFilterChange = useCallback(
-    (currentSelectedFilters: Set<string>) => {
-      dispatch({
-        type: UPDATE_SELECTED_FILTER,
-        payload: {
-          selectedFilters: currentSelectedFilters,
-        },
-      });
-    },
-    []
-  );
-
-  const handleSortChange = useCallback((currentSort, currentOrder) => {
-    dispatch({
-      type: UPDATE_SORT,
-      payload: {
-        sort: currentSort,
-        order: currentOrder,
-      },
-    });
-  }, []);
+  }, [search, page, selectedFilters, sort, order]);
 
   useEffect(() => {
     getChannels();
   }, [getChannels]);
 
   return (
-    <Columns
-      className={classNames('channel-listing', {
-        'is-loading': isLoading,
-      })}
-    >
-      <Column>
-        <Columns isMultiline isVcentered className="channel-heading is-mobile">
-          <Column className="is-two-thirds-mobile">
-            <div className="title is-3">
-              <b>Channels</b>
-            </div>
-          </Column>
-
-          {!!total && (
-            <Column isNarrow>
-              <span>
-                {pageStart} to {pageEnd} of {total} channels
-              </span>
-              <span>
-                {pageStart}-{pageEnd} of {total}
-              </span>
+    <ChannelListingContext.Provider value={{ state, dispatch }}>
+      <Columns
+        className={classNames('channel-listing', {
+          'is-loading': isLoading,
+        })}
+      >
+        <Column>
+          <Columns
+            isMultiline
+            isVcentered
+            className="channel-heading is-mobile"
+          >
+            <Column className="is-two-thirds-mobile">
+              <div className="title is-3">
+                <b>Channels</b>
+              </div>
             </Column>
-          )}
 
-          <Column isNarrow>
-            <ChannelSortButton
-              disabled={!total}
-              sort={sort}
-              order={order}
-              onSort={handleSortChange}
-            />
-          </Column>
-        </Columns>
-        <Columns isMultiline>
-          <Column>
-            <ChannelSelectedFilters
-              selectedFilters={selectedFilters}
-              onChange={handleFilterChange}
-            />
-          </Column>
-        </Columns>
-        {!channels && <p>Loading...</p>}
-        {!total && channels && (
-          <p>Oops, no channels found. Please try a different filter...</p>
-        )}
-        {!!total && (
-          <>
-            <Columns isMultiline>
-              {channels?.map((channel) => (
-                <Column key={channel.id} size={4}>
-                  <ChannelCard {...channel} />
-                </Column>
-              ))}
-            </Columns>
-
-            <Columns>
-              <Column></Column>
+            {!!total && (
               <Column isNarrow>
-                <Pagination
-                  page={page}
-                  size={PAGE_SIZE}
-                  total={total}
-                  onChange={handlePageChange}
-                />
+                <span>
+                  {pageStart} to {pageEnd} of {total} channels
+                </span>
+                <span>
+                  {pageStart}-{pageEnd} of {total}
+                </span>
               </Column>
-            </Columns>
-          </>
-        )}
-      </Column>
-      <Column size={3}>
-        <ChannelFilters
-          selectedFilters={selectedFilters}
-          aggregations={aggregations}
-          onChange={handleFilterChange}
-        />
-      </Column>
-    </Columns>
+            )}
+
+            <Column isNarrow>
+              <ChannelSortButton
+                title="title"
+                field="title"
+                disabled={!total}
+              />
+            </Column>
+            <Column isNarrow>
+              <ChannelSortButton
+                title="channel"
+                field="stbNumber"
+                disabled={!total}
+              />
+            </Column>
+          </Columns>
+          <Columns isMultiline>
+            <Column>
+              <ChannelSelectedFilters />
+            </Column>
+          </Columns>
+          {!channels && <p>Loading...</p>}
+          {!total && channels && (
+            <p>Oops, no channels found. Please try a different filter...</p>
+          )}
+          {!!total && (
+            <>
+              <Columns isMultiline>
+                {channels?.map((channel) => (
+                  <Column key={channel.id} size={4}>
+                    <ChannelCard {...channel} />
+                  </Column>
+                ))}
+              </Columns>
+
+              <Columns>
+                <Column></Column>
+                <Column isNarrow>
+                  <ChannelPagination />
+                </Column>
+              </Columns>
+            </>
+          )}
+        </Column>
+        <Column size={3}>
+          <ChannelSearch />
+          <ChannelFilters />
+        </Column>
+      </Columns>
+    </ChannelListingContext.Provider>
   );
 };
 
