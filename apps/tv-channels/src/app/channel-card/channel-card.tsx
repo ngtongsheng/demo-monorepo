@@ -12,7 +12,6 @@ export interface ChannelCardProps extends Channel {
 }
 
 export const ChannelCard: FunctionComponent<ChannelCardProps> = ({
-  id,
   title,
   thumbnail,
   channelId,
@@ -41,7 +40,7 @@ export const ChannelCard: FunctionComponent<ChannelCardProps> = ({
       </Columns>
       {isDescription && description && (
         <Columns isVcentered className="is-mobile">
-          <Column isNarrow>
+          <Column size={12} isNarrow>
             <p>{description}</p>
           </Column>
         </Columns>

@@ -1,16 +1,23 @@
 import React, { FunctionComponent } from 'react';
+import PanelBlock from './panel-block';
 
 import './panel.scss';
 
 export interface PanelProps {
   title: string;
+  isPanelBlock?: boolean;
 }
 
-export const Panel: FunctionComponent<PanelProps> = ({ title, children }) => {
+export const Panel: FunctionComponent<PanelProps> = ({
+  title,
+  children,
+  isPanelBlock = true,
+}) => {
   return (
     <nav className="panel">
       <p className="panel-heading">{title}</p>
-      <div className="panel-block">{children}</div>
+      {isPanelBlock && <PanelBlock>{children}</PanelBlock>}
+      {!isPanelBlock && children}
     </nav>
   );
 };

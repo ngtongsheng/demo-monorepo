@@ -1,4 +1,6 @@
 export * from './lib/components/panel/panel';
+export * from './lib/components/panel/panel-block';
+export * from './lib/components/panel/panel-tabs';
 export * from './lib/components/pagination/pagination';
 export * from './lib/elements/tags/tags';
 export * from './lib/elements/tag/tag';
