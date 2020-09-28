@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import format from 'date-fns/format';
 import isToday from 'date-fns/isToday';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ChannelService } from '@demo-monorepo/service-channel';
 import { Channel, DailyShows } from '@demo-monorepo/api-interfaces';
 import {
@@ -23,12 +23,10 @@ import './channel-detail.scss';
 
 const SUCCESS_GET_CHANNEL = 'SUCCESS_GET_CHANNEL';
 const UPDATE_TAB = 'UPDATE_TAB';
-const START_LOADING = 'START_LOADING';
 
 interface ChannelDetailProps {
   channel: Channel;
   weeklyShows: DailyShows[];
-  isLoading: boolean;
   days: string[];
   currentDay: string;
 }
@@ -36,7 +34,6 @@ interface ChannelDetailProps {
 const initialState: ChannelDetailProps = {
   channel: null,
   weeklyShows: null,
-  isLoading: false,
   days: [],
   currentDay: '',
 };
@@ -55,16 +52,13 @@ const reducer = (state, { type, payload }) => {
   switch (type) {
     case SUCCESS_GET_CHANNEL: {
       const { channel, weeklyShows } = payload;
-      const days = (weeklyShows || []).map(({ date }) =>
-        convertToDayOfWeek(date)
-      );
+      const days = weeklyShows.map(({ date }) => convertToDayOfWeek(date));
       const currentDay = days[0];
 
       return {
         ...state,
         channel,
         weeklyShows,
-        isLoading: false,
         days,
         currentDay,
       };
@@ -72,16 +66,10 @@ const reducer = (state, { type, payload }) => {
 
     case UPDATE_TAB: {
       const { currentDay } = payload;
+
       return {
         ...state,
         currentDay,
-      };
-    }
-
-    case START_LOADING: {
-      return {
-        ...state,
-        isLoading: true,
       };
     }
 
@@ -94,7 +82,6 @@ export const ChannelDetail: FunctionComponent = () => {
   const { id } = useParams<{ id: string }>();
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
-    isLoading,
     channel,
     weeklyShows,
     days,
@@ -102,11 +89,6 @@ export const ChannelDetail: FunctionComponent = () => {
   } = state as ChannelDetailProps;
 
   const getChannel = useCallback(async () => {
-    dispatch({
-      type: START_LOADING,
-      payload: {},
-    });
-
     const payload = await ChannelService.getChannel(id.split('-').pop());
 
     dispatch({
@@ -116,7 +98,6 @@ export const ChannelDetail: FunctionComponent = () => {
   }, [id]);
 
   const handleTabChange = useCallback(async (currentTab) => {
-    console.log(currentTab);
     dispatch({
       type: UPDATE_TAB,
       payload: {
@@ -133,7 +114,9 @@ export const ChannelDetail: FunctionComponent = () => {
     <>
       <Columns>
         <Column>
-          <Button color="light">Back</Button>
+          <Link to="/channels">
+            <Button color="light">Back</Button>
+          </Link>
         </Column>
       </Columns>
       <Columns>

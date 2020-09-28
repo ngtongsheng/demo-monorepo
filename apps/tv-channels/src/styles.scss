@@ -3,3 +3,21 @@
 html {
   font-size: 14px;
 }
+
+.input:active,
+.input:focus,
+.is-active.input,
+.is-active.textarea,
+.is-focused.input,
+.is-focused.textarea,
+.select select.is-active,
+.select select.is-focused,
+.select select:active,
+.select select:focus,
+.textarea:active,
+.textarea:focus,
+:focus {
+  border-color: #f14668;
+  outline-color: #f14668;
+  box-shadow: 0 0 0 0.125em rgb(241, 70, 104, 0.25);
+}

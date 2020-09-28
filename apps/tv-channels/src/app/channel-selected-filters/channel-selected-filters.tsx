@@ -3,12 +3,13 @@ import { Tag, Tags, FaIcon } from '@demo-monorepo/ui';
 import './channel-selected-filters.scss';
 import {
   ChannelListingContext,
+  UPDATE_SEARCH,
   UPDATE_SELECTED_FILTER,
 } from '../channel-listing/channel-listing';
 
 export const ChannelSelectedFilters: FunctionComponent = () => {
   const { state, dispatch } = useContext(ChannelListingContext);
-  const { selectedFilters } = state;
+  const { selectedFilters, search } = state;
 
   const handleFilterDelete = useCallback(
     (key: string) => {
@@ -24,7 +25,7 @@ export const ChannelSelectedFilters: FunctionComponent = () => {
     [dispatch, selectedFilters]
   );
 
-  const handleFilterDeleteAll = useCallback(() => {
+  const handleClearFilters = useCallback(() => {
     dispatch({
       type: UPDATE_SELECTED_FILTER,
       payload: {
@@ -32,6 +33,20 @@ export const ChannelSelectedFilters: FunctionComponent = () => {
       },
     });
   }, [dispatch]);
+
+  const handleClearSearch = useCallback(() => {
+    dispatch({
+      type: UPDATE_SEARCH,
+      payload: {
+        search: '',
+      },
+    });
+  }, [dispatch]);
+
+  const handleClearAll = useCallback(() => {
+    handleClearFilters();
+    handleClearSearch();
+  }, [handleClearFilters, handleClearSearch]);
 
   return (
     <Tags className="selected-filters">
@@ -49,11 +64,17 @@ export const ChannelSelectedFilters: FunctionComponent = () => {
           </Tag>
         );
       })}
+      {search && (
+        <Tag size="normal" color="light" onClick={handleClearSearch}>
+          search: {search}
+          <FaIcon name="times" />
+        </Tag>
+      )}
       <Tag
         size="normal"
-        className={!selectedFilters.size && 'is-disabled'}
+        className={!selectedFilters.size && !search && 'is-disabled'}
         color={selectedFilters.size ? 'danger' : 'light'}
-        onClick={handleFilterDeleteAll}
+        onClick={handleClearAll}
       >
         Clear all <FaIcon name="times" />
       </Tag>
