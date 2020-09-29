@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  baseURL: 'http://localhost:3333/',
+  baseURL:
+    'https://is6bgdcd73.execute-api.ap-southeast-1.amazonaws.com/production/',
 };

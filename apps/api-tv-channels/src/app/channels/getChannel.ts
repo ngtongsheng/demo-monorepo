@@ -7,6 +7,7 @@ import {
 } from '@demo-monorepo/api-interfaces';
 
 export default async (req, res) => {
+  console.log(process.env);
   const { id } = req.params;
   const url = `https://contenthub-api.eco.astro.com.my/channel/${id}.json`;
   const { data } = await axios.get(url);

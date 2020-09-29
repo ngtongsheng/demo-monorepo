@@ -5,6 +5,7 @@
 
 import * as express from 'express';
 import { getChannels, getChannel } from './app/channels';
+import awsServerlessExpress from 'aws-serverless-express';
 
 const app = express();
 const port = process.env.port || 3333;
@@ -28,5 +29,11 @@ app
   .post('/channel', getChannels)
   .get('/channel/:id', getChannel);
 
-const server = app.listen(port, onConnect);
-server.on('error', console.error);
+if (process.env.WEBPACK_DEV_SERVER) {
+  app.listen(port, onConnect);
+}
+
+const server = awsServerlessExpress.createServer(app);
+
+export const handler = (event, context) =>
+  awsServerlessExpress.proxy(server, event, context);
