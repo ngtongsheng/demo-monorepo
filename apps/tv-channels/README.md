@@ -17,5 +17,13 @@ A simple app that consist of astro's channels listing & detail page.
 - React
 - Typescript
 - Express
-- Serverless
-- Nx
+
+## 3rd party libraries
+
+- Axios - HTTP client
+- Bulma - CSS framework
+- Ramda - Functional programming Utility
+- Serverless - Tool to deploy api to lambda
+- React router - Routing
+- Date Fns - Date Utility
+- Classnames - Class Name Utility
