@@ -56,7 +56,7 @@ export const ChannelSelectedFilters: FunctionComponent = () => {
           <Tag
             key={key}
             size="normal"
-            color="light"
+            color="danger"
             onClick={() => handleFilterDelete(key)}
           >
             {filter.field}: {filter.value}
@@ -65,7 +65,7 @@ export const ChannelSelectedFilters: FunctionComponent = () => {
         );
       })}
       {search && (
-        <Tag size="normal" color="light" onClick={handleClearSearch}>
+        <Tag size="normal" color="dark" onClick={handleClearSearch}>
           search: {search}
           <FaIcon name="times" />
         </Tag>
