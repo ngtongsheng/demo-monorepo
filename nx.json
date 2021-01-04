@@ -89,6 +89,13 @@
     },
     "service-channel": {
       "tags": []
+    },
+    "findra-proposal": {
+      "tags": []
+    },
+    "findra-proposal-e2e": {
+      "tags": [],
+      "implicitDependencies": ["findra-proposal"]
     }
   }
 }
